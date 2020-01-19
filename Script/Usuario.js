@@ -24,19 +24,26 @@ function LimpiaUsuario() {
 
 	$("#hdIdUsuario").val("0");
 	$("#txtUsuario").val("");
-	$("#txtMail").val("");
+	$("#txtPassword").val("");
 	$("#txtNombre").val("");
 	$("#txtApellido").val("");
+	$("#txtSegundoApellido").val("");
+	$("#txtRfc").val("");
+	$("#txtRol").val("usuario");
 	$('#txtValido').prop('checked', true);
-	$("#txtPassword").val("");
+
 
 
 }
 
 function ValidaUsuario() {
 
-	if ($("#txtUsuario").val() == "") {
+	if ($("#txtUsuario").val() == "" ) {
 		alertify.alert("Es Necesario Ingresar El Nombre de Usuario");
+		return false;
+	}
+	if ( $("#txtUsuario").val().length < 5 ) {
+		alertify.alert("El Nombre de Usuario debe contener al menos 5 caracteres");
 		return false;
 	}
 
@@ -44,16 +51,16 @@ function ValidaUsuario() {
 		alertify.alert("Es Necesario Ingresar El Password de Usuario");
 		return false;
 	}
-	if ($("#txtMail").val() == "") {
-		alertify.alert("Es Necesario Ingresar El Mail de Usuario");
+	if ($("#txtPassword").val() != "" && $("#txtPassword").val().length < 5 ) {
+		alertify.alert("El Password debe contener al menos 5 caracteres");
 		return false;
 	}
 	if ($("#txtNombre").val() == "") {
-		alertify.alert("Es Necesario Ingresar El Nombre del Empleado");
+		alertify.alert("Es Necesario Ingresar El Nombre");
 		return false;
 	}
 	if ($("#txtApellido").val() == "") {
-		alertify.alert("Es Necesario Ingresar El Apellido del Empleado");
+		alertify.alert("Es Necesario Ingresar El  Primer Apellido");
 		return false;
 	}
 
@@ -67,21 +74,27 @@ function GuardaUsuario() {
 
 	var _id = $("#hdIdUsuario").val();
 	var _us = $("#txtUsuario").val();
-	var _mail = $("#txtMail").val();
+	var _password = $("#txtPassword").val();
 	var _nombre = $("#txtNombre").val();
 	var _apellido = $("#txtApellido").val();
+	var _segundoApellido = $("#txtSegundoApellido").val();
+	var _rfc = $("#txtRfc").val();
+	var _rol = $("#txtRol").val();
 	var _valido = ($('#txtValido').prop('checked') ? "1" : "0");
-	var _password = $("#txtPassword").val();
+
 
 
 	var parametros = {
 		"hdIdUsuario": _id,
 		"txtUsuario": _us,
-		"txtMail": _mail,
+		"txtPassword": _password,
 		"txtNombre": _nombre,
 		"txtApellido": _apellido,
+		"txtSegundoApellido": _segundoApellido,
+		"txtRfc": _rfc,
+		"txtRol": _rol,
 		"txtValido": _valido,
-		"txtPassword": _password
+
 	};
 
 	$.ajax({
@@ -119,18 +132,21 @@ function gvUsuario() {
 						var id = dataItem.Id;
 						var Usuario = dataItem.Usuario;
 						var Valido = dataItem.Valido;
-						var Mail = dataItem.Mail;
-						var Nombre = dataItem.Nombre;
-						var Apellido = dataItem.Apellido;
-
-						alertify.confirm('Realmente quiere Editar La Partida ?', function (e) {
+						var Rol = dataItem.Rol;
+						var Rfc = dataItem.Rfc;
+						var Nombre = dataItem.Nombres;
+						var Apellido = dataItem.PrimerApellido;
+						var SegundoApellido = dataItem.SegundoApellido;
+						alertify.confirm('Realmente quiere Editar El Usuario '+ Usuario +' ?', function (e) {
 							if (e) {
 								NuevoUsuario();
 								$("#hdIdUsuario").val(id);
 								$("#txtUsuario").val(Usuario);
-								$("#txtMail").val(Mail);
+								$("#txtSegundoApellido").val(SegundoApellido);
 								$("#txtNombre").val(Nombre);
 								$("#txtApellido").val(Apellido);
+								$("#txtRfc").val(Rfc);
+								$("#txtRol").val(Rol);
 								if (Valido == 1) $('#txtValido').prop('checked', true);
 								else $('#txtValido').prop('checked', false);
 
@@ -142,16 +158,17 @@ function gvUsuario() {
 			},
 			{
 				command: [{
-					name: "Delete", imageClass: "k-icon k-i-close", click: function (e) {
+					name: "Del", imageClass: "k-icon k-i-close", click: function (e) {
 						e.preventDefault();
 						var dataItem = this.dataItem($(e.target).closest("tr"));
 						var id = dataItem.Id;
+						var Usuario = dataItem.Usuario;
 						var parametros = {
 							"Id": id
 						};
 
 
-						alertify.confirm('Realmente quiere Eliminar La Partida ?', function (e) {
+						alertify.confirm('Realmente quiere Eliminar El Usuario '+ Usuario +' ?', function (e) {
 							if (e) {
 								$.ajax({
 									type: 'POST',
@@ -197,9 +214,10 @@ function gvUsuario() {
 				}
 
 			},
+
 			{
-				field: "Mail", width: 100,
-				title: "Mail", filterable: {
+				field: "Nombres", width: 100,
+				title: "Nombres", filterable: {
 					cell: {
 						operator: "contains"
 					}
@@ -207,8 +225,8 @@ function gvUsuario() {
 
 			},
 			{
-				field: "Nombre", width: 100,
-				title: "Nombre", filterable: {
+				field: "PrimerApellido", width: 100,
+				title: "P.Apellido", filterable: {
 					cell: {
 						operator: "contains"
 					}
@@ -216,8 +234,26 @@ function gvUsuario() {
 
 			},
 			{
-				field: "Apellido", width: 100,
-				title: "Apellido", filterable: {
+				field: "SegundoApellido", width: 100,
+				title: "S.Apellido", filterable: {
+					cell: {
+						operator: "contains"
+					}
+				}
+
+			},
+			{
+				field: "Rfc", width: 100,
+				title: "RFC", filterable: {
+					cell: {
+						operator: "contains"
+					}
+				}
+
+			},
+			{
+				field: "Rol", width: 100,
+				title: "Rol", filterable: {
 					cell: {
 						operator: "contains"
 					}
@@ -245,9 +281,11 @@ function gvUsuario() {
 						Usuario: {type: "string"},
 						Password: {type: "string"},
 						Valido: {type: "string"},
-						Mail: {type: "string"},
-						Nombre: {type: "string"},
-						Apellido: {type: "string"}
+						Rfc: {type: "string"},
+						Nombres: {type: "string"},
+						PrimerApellido: {type: "string"},
+						SegundoApellido: {type: "string"},
+						Rol: {type: "string"}
 					}
 				}
 			},
