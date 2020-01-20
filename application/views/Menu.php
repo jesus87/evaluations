@@ -79,12 +79,12 @@
 						<i class="ni ni-single-02 text-red"></i> Usuarios
 					</a>
 				</li>
+			
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url(); ?>index.php/Configuracion">
+					<a class="nav-link" href="<?php echo base_url(); ?>index.php/UsuarioExamen">
 						<i class="ni ni-laptop text-info"></i> Examenes
 					</a>
 				</li>
-
 
 			</ul>
 
