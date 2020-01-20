@@ -56,7 +56,6 @@ class Usuario_model extends CI_Model
 
 
 		$query = $this->db->get('usuario');
-
 		return $query->result();
 
 	}
@@ -77,5 +76,23 @@ class Usuario_model extends CI_Model
 		} else {
 			return "OK";
 		}
+	}
+	/**
+	 * Get Examen for user
+	 * @param  int $id_user of the user
+	 * @return  string message of result
+	 */
+	public function GetExamen( $id_user)
+	{
+
+		$this->db->select('usuarioexamen.Id, examen.IdExamen as IdExamen,examen.Nombre as Nombre, examen.Clave as Clave,
+		examen.Descripcion as Descripcion,examen.Tiempo as Tiempo,examen.CalificacionAprobatoria,
+		 examen.CantidadPreguntas, usuarioexamen.FechaHoraInicio,DATE_FORMAT(usuarioexamen.FechaHoraInicio,\'%Y-%m-%d %h:%i:%s\')  as DiferenciaFecha')
+			->from('examen')
+			->join('usuarioexamen', 'examen.IdExamen = usuarioexamen.Examen_IdExamen')
+			->where('usuarioexamen.Usuario_Id', $id_user)
+			->where('usuarioexamen.Valido', 1)
+			->where('usuarioexamen.Status != ', 2);
+		return  $this->db->get();
 	}
 }

@@ -34,7 +34,9 @@ class Login extends CI_Controller {
 				$this->load->view('Login',$data);
 				break;
 			case 'administrador':
-
+				redirect(base_url().'index.php/inicio');
+				break;
+			case 'usuario':
 				redirect(base_url().'index.php/inicio');
 				break;
 			default:
