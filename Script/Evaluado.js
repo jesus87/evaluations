@@ -115,6 +115,6 @@ function Endining(calificacion,aprobatoria){
 	$("#divInicio").hide();
 
 	$("#divResultado").show('slow');
-	$("#pResultado").text("Su Calificación Ha Sido De "+ calificacion + " / " + aprobatoria);
+	$("#pResultado").text("Su Calificación Ha Sido De "+ calificacion + " / 100");
 	return false;
 }

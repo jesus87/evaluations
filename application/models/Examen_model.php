@@ -18,7 +18,8 @@ class Examen_model extends CI_Model
 	{
 		$this->db->select('* ')
 			->from('pregunta')
-			->where('Examen_IdExamen', $idExamen);
+			->where('Examen_IdExamen', $idExamen)
+			->where('Valido', 1);
 		$query  =  $this->db->get();
 		$html ='<table id="tblExamen" style="display:none">';
 		$contador=1;
