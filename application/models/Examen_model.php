@@ -57,7 +57,8 @@ class Examen_model extends CI_Model
 	{
 		$this->db->select('* ')
 			->from('respuesta')
-			->where('Pregunta_IdPregunta', $idPregunta);
+			->where('Pregunta_IdPregunta', $idPregunta)
+			->where('Valido', 1);
 		$query  =  $this->db->get();
 		$html='<table>';
 
