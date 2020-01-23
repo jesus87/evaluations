@@ -40,10 +40,12 @@ class Examen extends CI_Controller
 		$HoraActual= $dt->format('Y-m-d H:i:s');
 		$id = $this->input->get_post('hdIdUsuarioExamen');
 		$aprobado = $this->input->get_post('aprobado');
+		$calificacion = $this->input->get_post('calificacion');
 		$data = array(
 			'FechaHoraFin' => $HoraActual,
 			'Status' => 2,
-			'Aprobado' => $aprobado
+			'Aprobado' => $aprobado,
+			'Calificacion' => $calificacion
 		);
 		$response_array['status'] = 'success';
 		$success = $this->Examen_model->ActualizaUsuarioExamen($data,$id);

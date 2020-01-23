@@ -1,3 +1,4 @@
+
 <?php
 class Usuario_model extends CI_Model
 {
@@ -87,7 +88,8 @@ class Usuario_model extends CI_Model
 
 		$this->db->select('usuarioexamen.Id, examen.IdExamen as IdExamen,examen.Nombre as Nombre, examen.Clave as Clave,
 		examen.Descripcion as Descripcion,examen.Tiempo as Tiempo,examen.CalificacionAprobatoria,
-		 examen.CantidadPreguntas, usuarioexamen.FechaHoraInicio,DATE_FORMAT(usuarioexamen.FechaHoraInicio,\'%Y-%m-%d %h:%i:%s\')  as DiferenciaFecha')
+		 examen.CantidadPreguntas, usuarioexamen.FechaHoraInicio,
+		 DATE_FORMAT(usuarioexamen.FechaHoraInicio,\'%Y-%m-%d %h:%i:%s\')  as DiferenciaFecha,IdsPreguntas')
 			->from('examen')
 			->join('usuarioexamen', 'examen.IdExamen = usuarioexamen.Examen_IdExamen')
 			->where('usuarioexamen.Usuario_Id', $id_user)

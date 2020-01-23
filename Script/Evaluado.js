@@ -62,12 +62,13 @@ function CalificarFunc() {
 		$("#btnCalificar").attr("disabled","disabled");
 		var calificacion = GetCalificacion();
 		var aprobatoria = $("#hdCalificacionAprobatoria").val();
-
+		var aprobo =(calificacion >= aprobatoria ? 1: 0);
 
 
 		var parametros = {
 			"hdIdUsuarioExamen": $("#hdIdUsuarioExamen").val(),
-			"aprobado": (calificacion >= aprobatoria ? 1: 0)
+			"aprobado": aprobo,
+			"calificacion": calificacion
 		};
 		$.ajax({
 			type: 'POST',
@@ -77,7 +78,7 @@ function CalificarFunc() {
 			success: function (msg) {
 
 				if (msg.message == "OK") {
-					Endining(calificacion,aprobatoria);
+					Endining(calificacion,aprobatoria,aprobo);
 
 				}
 				else alertify.alert(msg.Error);
@@ -107,14 +108,17 @@ function GetCalificacion(){
 	});
 
 
-	return parseFloat(numberOfCheckedRadio + numberOfCheckedCheckBox);
+	return (parseFloat(numberOfCheckedRadio + numberOfCheckedCheckBox) * 100) / parseFloat($("#hdCantidadPreguntas").val());
 
 }
-function Endining(calificacion,aprobatoria){
+function Endining(calificacion,aprobatoria,aprobo){
 	$("#divExamen").hide();
 	$("#divInicio").hide();
 
 	$("#divResultado").show('slow');
-	$("#pResultado").text("Su Calificación Ha Sido De "+ calificacion + " / 100");
+
+	var mensaje ="Felicidades";
+	if (aprobo < 1) mensaje ="Lo Sentimos";
+	$("#pResultado").html(mensaje+ " Su Calificación Ha Sido De "+ calificacion + " / 100"+"<br/> La Calificacion minima aprobatoria es de "+aprobatoria);
 	return false;
 }

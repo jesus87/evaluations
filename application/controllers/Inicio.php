@@ -53,7 +53,7 @@ class Inicio extends CI_Controller {
 					$data['DiferenciaFecha'] = $minutes;
 					$data['CalificacionAprobatoria'] = $usuarioExamen->CalificacionAprobatoria;
 					$data['CantidadPreguntas'] = $usuarioExamen->CantidadPreguntas;
-					$preguntas = $this->Examen_model->GetPreguntas($usuarioExamen->IdExamen);
+					$preguntas = $this->Examen_model->GetPreguntas($usuarioExamen->IdExamen,$usuarioExamen->IdsPreguntas);
 					$data['Preguntas'] = $preguntas;
 					$data['IdUsuarioExamen'] = $usuarioExamen->Id;
 					if ($minutes >= $usuarioExamen->Tiempo) {

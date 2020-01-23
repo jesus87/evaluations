@@ -103,7 +103,7 @@ class UsuarioExamen_model extends CI_Model
 		$sql1="select group_concat(random.IdPregunta) IdsPreguntas from (
 				SELECT p.IdPregunta FROM examen e 
 				inner join pregunta p on(e.IdExamen=p.Examen_IdExamen)
-				where e.IdExamen=".$IdExamen."
+				where e.IdExamen=".$IdExamen." and p.valido=1
 				ORDER BY RAND()
 				LIMIT ".$CantidadPreguntas."
 				)random";

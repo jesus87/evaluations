@@ -1,0 +1,1 @@
+carpeta imagenes pegar en raiz del proyecto
