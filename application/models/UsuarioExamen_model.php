@@ -18,6 +18,7 @@ class UsuarioExamen_model extends CI_Model
 
 		//return $data["IdUsuario"];
 		$RClave=$this->ObtieneFolio($data['IdExamen'],$data["ClaveExamen"]);
+		$RIds=$this->ObtieneIdsPregunstas($data['IdExamen']);
 		//return $RClave;
 		if($RClave["Respuesta"]=="OK"){
 			$data = array(
@@ -26,15 +27,10 @@ class UsuarioExamen_model extends CI_Model
 				'Valido' => 1,
 				'Examen_IdExamen' => $data['IdExamen'],
 				'Usuario_Id' => $data['IdUsuario'],
-				'Consecutivo' => $RClave["Consecutivo"]
+				'Consecutivo' => $RClave["Consecutivo"],
+				'IdsPreguntas' => $RIds['Mensaje']
 			);
-			// $data1["Clave"]=$RClave["Mensaje"];
-			// $data1["Status"]=0;
-			// $data1["Valido"]=1;
-			// $data1["Examen_IdExamen"]=$data['IdExamen'];
-			// $data1["Usuario_Id"]=$data['IdUsuario'];
-			// $data1["Consecutivo"]=$RClave["Consecutivo"];
-
+			
 			$this->db->insert('usuarioexamen', $data);
 			$error = $this->db->error();
 			if ($error["message"] != "") {
@@ -89,6 +85,40 @@ class UsuarioExamen_model extends CI_Model
 			$data["Respuesta"]="OK";
 			$data["Mensaje"]= $Clave;
 			$data["Consecutivo"]=$Consecutivo;
+			
+		
+		return $data;
+	}
+
+	public function ObtieneIdsPregunstas($IdExamen){
+		//$data="";
+		$sql='select CantidadPreguntas from examen where IdExamen='.$IdExamen;
+		//return $query;
+		$CantidadPreguntas=0;
+		$query = $this->db->query($sql);
+		foreach($query->result_array() AS $row) {
+				$CantidadPreguntas=$row["CantidadPreguntas"];	
+		}
+
+		$sql1="select group_concat(random.IdPregunta) IdsPreguntas from (
+				SELECT p.IdPregunta FROM examen e 
+				inner join pregunta p on(e.IdExamen=p.Examen_IdExamen)
+				where e.IdExamen=".$IdExamen."
+				ORDER BY RAND()
+				LIMIT ".$CantidadPreguntas."
+				)random";
+		//return $query;
+		$IdsPreguntas="";
+		$query1 = $this->db->query($sql1);
+		foreach($query1->result_array() AS $row1) {
+				$IdsPreguntas=$row1["IdsPreguntas"];	
+		}
+			
+
+
+			$data["Respuesta"]="OK";
+			$data["Mensaje"]= $IdsPreguntas;
+			//$data["Consecutivo"]=$Consecutivo;
 			
 		
 		return $data;
