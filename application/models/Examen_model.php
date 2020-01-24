@@ -105,5 +105,71 @@ class Examen_model extends CI_Model
 		}
 
 	}
+	public function GetExamenResultado( $id_examen)
+	{
+
+		$sql='select examen.IdExamen as IdExamen,examen.Nombre as Nombre,
+		examen.Descripcion as Descripcion,examen.Tiempo as Tiempo,examen.CalificacionAprobatoria,
+		 examen.CantidadPreguntas,usuarioexamen.Clave,
+		 DATE_FORMAT(usuarioexamen.FechaHoraInicio,\'%Y-%m-%d %h:%i:%s\')  as FechaHoraInicio,
+		 DATE_FORMAT(usuarioexamen.FechaHoraFin,\'%Y-%m-%d %h:%i:%s\')  as    FechaHoraFin,
+		 usuarioexamen.Aprobado,usuarioexamen.Calificacion,
+		 usuario.Nombres,usuario.PrimerApellido,usuario.SegundoApellido,usuario.Rfc 
+		 from examen 
+		  join usuarioexamen on examen.IdExamen = usuarioexamen.Examen_IdExamen 
+		  join usuario on usuarioexamen.Usuario_Id = usuario.Id 
+		  where usuarioexamen.Id =' . $id_examen .' and usuarioexamen.Valido = 1';
+		$query = $this->db->query($sql);
+
+
+		$html='<h1>No Cuenta Con Resultados </h1>';
+		foreach ($query->result_array() as $row) {
+
+			$html = '<h1>Resultados del Examen ' . $row['Clave']  . ' ' . $row['Nombre'] . '</h1>';
+			$html .= '<table>';
+			$html .= '<tr>';
+			$html .= '<td>Descripción del Examen:</td>';
+			$html .= '<td>'.  $row['Descripcion']   .'</td>';
+			$html .= '</tr>';
+			$html .='<tr><td colspan="2"><br/><br/></td></tr>';
+			$html .= '<tr>';
+			$html .= '<td>Evaluado:</td>';
+			$html .= '<td>'.  $row['Nombres'] . ' ' . $row['PrimerApellido'] . ' '. $row['SegundoApellido']  .'</td>';
+			$html .= '</tr>';
+			$html .='<tr><td colspan="2"><br/><br/></td></tr>';
+			$html .= '<tr>';
+			$html .= '<td>RFC:</td>';
+			$html .= '<td>'.  $row['Rfc']  .'</td>';
+			$html .= '</tr>';
+			$html .='<tr><td colspan="2"><br/><br/></td></tr>';
+			$html .= '<tr>';
+			$html .= '<td>Inicio del Examen:</td>';
+			$html .= '<td>'.  $row['FechaHoraInicio']  .'</td>';
+			$html .= '</tr>';
+			$html .='<tr><td colspan="2"><br/><br/></td></tr>';
+			$html .= '<tr>';
+			$html .= '<td>Fin del Examen:</td>';
+			$html .= '<td>'.  $row['FechaHoraFin']  .'</td>';
+			$html .= '</tr>';
+			$html .='<tr><td colspan="2"><br/><br/></td></tr>';
+			$html .= '<tr>';
+			$html .= '<td>Cantidad de Preguntas:</td>';
+			$html .= '<td>'. $row['CantidadPreguntas'].'</td>';
+			$html .='</tr>';
+			$html .='<tr><td colspan="2"><br/><br/></td></tr>';
+			$html .= '<tr>';
+			$html .= '<td>Calificación:</td>';
+			$html .= '<td>' . round( $row['Calificacion'] ,2)  .' /100</td>';
+			$html .= '</tr>';
+			$html .='<tr><td colspan="2"><br/><br/></td></tr>';
+			$html .= '<tr>';
+			$html .= '<td colspan="2">'. ($row['Aprobado'] == 1 ? "Felicidades ": "Lo Sentimos ").'Usted Ha '.
+				($row['Aprobado'] == 1 ? "Aprobado ": "Reprobado ")	.'</td>';
+			$html .= '</tr>';
+			$html .= '</table>';
+
+		}
+		return $html;
+	}
 
 }

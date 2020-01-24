@@ -152,13 +152,14 @@ class UsuarioExamen_model extends CI_Model
 
 
 
-		$query = $this->db->query("SELECT ue.Id,concat(u.Nombres,' ',u.PrimerApellido,' ',u.SegundoApellido) Nombre,e.Nombre Examen,e.Tiempo,e.CalificacionAprobatoria,e.CantidadPreguntas,ue.Clave,ue.Status,ue.Aprobado,ue.FechaHoraInicio,ue.FechaHoraFin,ue.TiempoTrascurrio,ue.FechaCrea FROM usuario u 
+		$query = $this->db->query("SELECT ue.Id,concat(u.Nombres,' ',u.PrimerApellido,' ',u.SegundoApellido) Nombre,e.Nombre Examen,ue.Calificacion,e.CalificacionAprobatoria,e.CantidadPreguntas,ue.Clave,ue.Status,case when isnull(Aprobado)=1 THEN 'Aprobado' else 'Reprobado' END Aprobado,ue.FechaHoraInicio,ue.FechaHoraFin,ue.TiempoTrascurrio,ue.FechaCrea FROM usuario u 
 		inner join usuarioexamen ue on(u.Id=ue.Usuario_Id and ue.valido=1)
 		inner join examen e on (ue.Examen_IdExamen=e.IdExamen and e.valido=1)");
 
 		return $query->result();
 
 	}
+
 
 	public function UsuariosDisponibles($IdExamen)
 	{
@@ -170,6 +171,7 @@ class UsuarioExamen_model extends CI_Model
 			left join usuarioexamen ue on(u.Id=ue.Usuario_Id and ue.valido=1)
 			left join examen e on (ue.Examen_IdExamen=e.IdExamen and e.valido=1)
 			where ue.id is null
+			and u.Rol='usuario'
 			and (ue.Examen_IdExamen is null or ue.Examen_IdExamen=".($IdExamen==''?0:$IdExamen).")");
 
 		return $query->result();

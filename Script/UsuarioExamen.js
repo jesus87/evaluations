@@ -463,13 +463,12 @@ function gvUsuario() {
 
 	}).data("kendoGrid");//fin del grid
 }
-
 function gvUsuarioAgregados() {
 
 
 	var grid = $('#tblUsuariosAgregados').kendoGrid({
 		columns: [
-			
+
 			{
 				command: [{
 					name: "Eliminar", imageClass: "k-icon k-i-close", click: function (e) {
@@ -511,7 +510,21 @@ function gvUsuarioAgregados() {
 					}
 				}], title: "&nbsp;", width: "150px"
 			},
+			{
+				command: [{
+					name: "Imprimir Calificacion", imageClass: "k-icon k-i-close", click: function (e) {
+						e.preventDefault();
+						var dataItem = this.dataItem($(e.target).closest("tr"));
+						var IdUsuarioExamen = dataItem.Id;
+						var Nombre = dataItem.Nombre;
 
+						PrintDiv(IdUsuarioExamen);
+
+
+
+					}
+				}], title: "&nbsp;", width: "150px"
+			},
 			{
 				field: "Nombre", width: 150,
 				title: "Evaluado", filterable: {
@@ -529,8 +542,8 @@ function gvUsuarioAgregados() {
 					}
 				}
 
-			},			
-			
+			},
+
 			{
 				field: "Clave", width: 100,
 				title: "Folio Examen", filterable: {
@@ -559,6 +572,16 @@ function gvUsuarioAgregados() {
 
 			},
 			{
+				field: "Calificacion", width: 100,
+				title: "Calificacion", filterable: {
+					cell: {
+						operator: "contains"
+					}
+				}
+
+			}
+			,
+			{
 				field: "FechaHoraInicio", width: 100,
 				title: "Fecha Inicio", filterable: {
 					cell: {
@@ -575,16 +598,8 @@ function gvUsuarioAgregados() {
 					}
 				}
 
-			},
-			{
-				field: "TiempoTranscurrido", width: 100,
-				title: "Tiempo Transcurrido", filterable: {
-					cell: {
-						operator: "contains"
-					}
-				}
-
 			}
+
 
 
 
@@ -613,9 +628,9 @@ function gvUsuarioAgregados() {
 			transport: {
 				read: function (options) {
 					var parametros = {
-							"IdExamen": ($("#IdExamenUA").val()==''?0:$("#IdExamenUA").val())
+						"IdExamen": ($("#IdExamenUA").val()==''?0:$("#IdExamenUA").val())
 
-						};
+					};
 					$.ajax({
 						type: 'POST',
 						url: 'UsuarioExamen/UsuariosAgregados',
@@ -636,7 +651,7 @@ function gvUsuarioAgregados() {
 			},
 			pageSize: 10
 		},
-		
+
 		filterable: {
 			mode: "row"
 		},
@@ -651,4 +666,27 @@ function gvUsuarioAgregados() {
 		scrollable: true
 
 	}).data("kendoGrid");//fin del grid
+}
+function PrintDiv(id) {
+	var parametros = {
+		"idusuarioexamen": id
+	};
+	$.ajax({
+		type: 'POST',
+		url: 'Examen/GetResultado',
+		dataType: 'json',
+		data: parametros,
+		success: function (msg) {
+
+			var popupWin = window.open('', '_blank', 'width=300,height=300');
+			popupWin.document.open();
+			popupWin.document.write('<html><body onload="window.print()">' + msg.data + '</html>');
+			popupWin.document.close();
+		},
+		error: function (x, status, error) {
+			alert("Ocurrio un Error: " + status + "nError: " + x.responseText);
+		}
+
+	});
+	return false;
 }

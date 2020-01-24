@@ -52,4 +52,15 @@ class Examen extends CI_Controller
 		$response_array['message'] = $success;
 		echo json_encode($response_array);
 	}
+	public function  GetResultado(){
+		$id = $this->input->get_post('idusuarioexamen');
+		$resultado = $this->Examen_model->GetExamenResultado($id);
+
+
+		$response_array['status'] = 'success';
+		$response_array['message'] = "OK";
+		$response_array['data'] = $resultado;
+
+		echo json_encode($response_array);
+	}
 }

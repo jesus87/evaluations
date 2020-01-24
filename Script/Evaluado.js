@@ -78,7 +78,7 @@ function CalificarFunc() {
 			success: function (msg) {
 
 				if (msg.message == "OK") {
-					Endining(calificacion,aprobatoria,aprobo);
+					Endining();
 
 				}
 				else alertify.alert(msg.Error);
@@ -111,14 +111,36 @@ function GetCalificacion(){
 	return (parseFloat(numberOfCheckedRadio + numberOfCheckedCheckBox) * 100) / parseFloat($("#hdCantidadPreguntas").val());
 
 }
-function Endining(calificacion,aprobatoria,aprobo){
+function Endining() {
 	$("#divExamen").hide();
 	$("#divInicio").hide();
-
+	$("#btnresultado").show();
 	$("#divResultado").show('slow');
 
-	var mensaje ="Felicidades";
-	if (aprobo < 1) mensaje ="Lo Sentimos";
-	$("#pResultado").html(mensaje+ " Su Calificación Ha Sido De "+ calificacion + " / 100"+"<br/> La Calificacion minima aprobatoria es de "+aprobatoria);
+
+	var parametros = {
+		"idusuarioexamen": $("#hdIdUsuarioExamen").val()
+	};
+	$.ajax({
+		type: 'POST',
+		url: 'Examen/GetResultado',
+		dataType: 'json',
+		data: parametros,
+		success: function (msg) {
+			$("#pResultado").html(msg.data);
+		},
+		error: function (x, status, error) {
+			alert("Ocurrio un Error: " + status + "nError: " + x.responseText);
+		}
+
+	});
 	return false;
+
+}
+function PrintDiv() {
+	var divToPrint = document.getElementById('divResultado');
+	var popupWin = window.open('', '_blank', 'width=300,height=300');
+	popupWin.document.open();
+	popupWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</html>');
+	popupWin.document.close();
 }

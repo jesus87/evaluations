@@ -15,11 +15,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</div>
 				</div>
 				<div id="divResultado" style="display: none;" class="row align-items-center">
-					<div class="col">
-						<h3 class="mb-0">Resultado </h3>
-						<p id="pResultado"></p>
+					<div id="pResultado" class="col">
+
 					</div>
+
 				</div>
+				<br/>
+				<br/>
+				<button id="btnresultado" style="display: none;" class="btn btn-primary" onclick="PrintDiv();">Imprimir</button>
 			</div>
 			<?php if ($toShow !='none'){ ?>
 			<div id="divExamen" style="display: <?php echo $toShow;?>" class="table-responsive">
