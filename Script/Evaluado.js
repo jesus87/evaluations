@@ -53,8 +53,9 @@ function Calificar() {
 
 
 	alertify.confirm('Realmente Desea Finalizar el Examen ?', function (e) {
-
-		CalificarFunc();
+		if(e) {
+			CalificarFunc();
+		}
 	});
 	return false;
 }
@@ -78,7 +79,19 @@ function CalificarFunc() {
 			success: function (msg) {
 
 				if (msg.message == "OK") {
-					Endining();
+					if(aprobo == 0) {
+						alertify.confirm('Usted ha reprobado el examen, desea repetirlo ?', function (e) {
+							if (e) {
+								ReiniciarExamen($("#hdIdUsuarioExamen").val());
+							}
+							else{
+								Endining();
+							}
+						});
+					}
+					else {
+						Endining();
+					}
 
 				}
 				else alertify.alert(msg.Error);
@@ -89,6 +102,29 @@ function CalificarFunc() {
 
 		});
 
+	return false;
+}
+function ReiniciarExamen(IdUsuarioExamen) {
+	var parametros = {
+		"IdUsuarioExamen": IdUsuarioExamen
+	};
+	$.ajax({
+		type: 'POST',
+		url: 'UsuarioExamen/RepetirUsuarioExamen',
+		dataType: 'json',
+		data: parametros,
+		success: function (msg) {
+			if (msg.message == "OK") {
+				window.location.href = $("#hdUrl").val();
+			} else alertify.alert(msg.Error);
+
+
+		},
+		error: function (x, status, error) {
+			alert("Ocurrio un Error: " + status + "nError: " + x.responseText);
+		}
+
+	});
 	return false;
 }
 function GetCalificacion(){
@@ -114,6 +150,7 @@ function GetCalificacion(){
 function Endining() {
 	$("#divExamen").hide();
 	$("#divInicio").hide();
+	$("#divHeader").show();
 	$("#btnresultado").show();
 	$("#divResultado").show('slow');
 
@@ -138,8 +175,13 @@ function Endining() {
 
 }
 function PrintDiv() {
+	var width =screen.width;
+	var height =screen.height;
+
+
 	var divToPrint = document.getElementById('divResultado');
-	var popupWin = window.open('', '_blank', 'width=300,height=300');
+
+	var popupWin = window.open('', '_blank', 'width='+width+',height='+height);
 	popupWin.document.open();
 	popupWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</html>');
 	popupWin.document.close();

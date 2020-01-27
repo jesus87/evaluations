@@ -39,13 +39,10 @@ function LimpiaUsuario() {
 function ValidaUsuario() {
 
 	if ($("#txtUsuario").val() == "" ) {
-		alertify.alert("Es Necesario Ingresar El Nombre de Usuario");
+		alertify.alert("Es Necesario Ingresar El RFC");
 		return false;
 	}
-	if ( $("#txtUsuario").val().length < 5 ) {
-		alertify.alert("El Nombre de Usuario debe contener al menos 5 caracteres");
-		return false;
-	}
+
 
 	if ($("#hdIdUsuario").val() == "0" && $("#txtPassword").val() == "") {
 		alertify.alert("Es Necesario Ingresar El Password de Usuario");
@@ -137,22 +134,28 @@ function gvUsuario() {
 						var Nombre = dataItem.Nombres;
 						var Apellido = dataItem.PrimerApellido;
 						var SegundoApellido = dataItem.SegundoApellido;
-						alertify.confirm('Realmente quiere Editar El Usuario '+ Usuario +' ?', function (e) {
-							if (e) {
-								NuevoUsuario();
-								$("#hdIdUsuario").val(id);
-								$("#txtUsuario").val(Usuario);
-								$("#txtSegundoApellido").val(SegundoApellido);
-								$("#txtNombre").val(Nombre);
-								$("#txtApellido").val(Apellido);
-								$("#txtRfc").val(Rfc);
-								$("#txtRol").val(Rol);
-								if (Valido == 1) $('#txtValido').prop('checked', true);
-								else $('#txtValido').prop('checked', false);
+						var TieneExamen = dataItem.TieneExamen;
+						var RolLogueado = $("#hdRolUsuario").val();
+						if (RolLogueado == 'administrador' ||
+							(RolLogueado == 'enrolador' && Rol == 'usuario' && TieneExamen ==0) ) {
 
-							}
-						});
+							alertify.confirm('Realmente quiere Editar El Usuario ' + Usuario + ' ?', function (e) {
+								if (e) {
+									NuevoUsuario();
+									$("#hdIdUsuario").val(id);
+									$("#txtUsuario").val(Usuario);
+									$("#txtSegundoApellido").val(SegundoApellido);
+									$("#txtNombre").val(Nombre);
+									$("#txtApellido").val(Apellido);
+									$("#txtRfc").val(Rfc);
+									$("#txtRol").val(Rol);
+									if (Valido == 1) $('#txtValido').prop('checked', true);
+									else $('#txtValido').prop('checked', false);
 
+								}
+							});
+						}
+						else alertify.alert("Usted no cuenta con los permisos para realizar esta acción");
 					}
 				}], title: "&nbsp;", width: "100px"
 			},
@@ -163,12 +166,14 @@ function gvUsuario() {
 						var dataItem = this.dataItem($(e.target).closest("tr"));
 						var id = dataItem.Id;
 						var Usuario = dataItem.Usuario;
+						var rol = dataItem.Rol;
 						var parametros = {
 							"Id": id
 						};
 
+						if (rol == 'administrador'){
 
-						alertify.confirm('Realmente quiere Eliminar El Usuario '+ Usuario +' ?', function (e) {
+							alertify.confirm('Realmente quiere Eliminar El Usuario '+ Usuario +' ?', function (e) {
 							if (e) {
 								$.ajax({
 									type: 'POST',
@@ -192,58 +197,15 @@ function gvUsuario() {
 
 							}
 						});
-
+						}
+						else alertify.alert("Usted no cuenta con los permisos para realizar esta acción");
 					}
 				}], title: "&nbsp;", width: "100px"
 			},
 
-			{
-				field: "Id", width: 100,
-				title: "#", filterable: {
-					cell: {
-						operator: "contains"
-					}
-				}
-			},
+
 			{
 				field: "Usuario", width: 100,
-				title: "Usuario", filterable: {
-					cell: {
-						operator: "contains"
-					}
-				}
-
-			},
-
-			{
-				field: "Nombres", width: 100,
-				title: "Nombres", filterable: {
-					cell: {
-						operator: "contains"
-					}
-				}
-
-			},
-			{
-				field: "PrimerApellido", width: 100,
-				title: "P.Apellido", filterable: {
-					cell: {
-						operator: "contains"
-					}
-				}
-
-			},
-			{
-				field: "SegundoApellido", width: 100,
-				title: "S.Apellido", filterable: {
-					cell: {
-						operator: "contains"
-					}
-				}
-
-			},
-			{
-				field: "Rfc", width: 100,
 				title: "RFC", filterable: {
 					cell: {
 						operator: "contains"
@@ -252,17 +214,18 @@ function gvUsuario() {
 
 			},
 			{
-				field: "Rol", width: 100,
-				title: "Rol", filterable: {
+				field: "NombreCompleto", width: 100,
+				title: "Nombre", filterable: {
 					cell: {
 						operator: "contains"
 					}
 				}
 
 			},
+
 			{
-				field: "Valido", width: 100,
-				title: "Valido", filterable: {
+				field: "Rol", width: 100,
+				title: "Rol", filterable: {
 					cell: {
 						operator: "contains"
 					}
@@ -285,7 +248,9 @@ function gvUsuario() {
 						Nombres: {type: "string"},
 						PrimerApellido: {type: "string"},
 						SegundoApellido: {type: "string"},
-						Rol: {type: "string"}
+						Rol: {type: "string"},
+						TieneExamen: {type: "string"},
+						NombreCompleto: {type: "string"},
 					}
 				}
 			},
@@ -311,7 +276,7 @@ function gvUsuario() {
 			},
 			pageSize: 10
 		},
-		height: 300,
+		height: 700,
 		filterable: {
 			mode: "row"
 		},

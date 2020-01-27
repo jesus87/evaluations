@@ -18,7 +18,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				</div>
 			</div>
 			<div class="table-responsive">
+				<center>
 				<h1>Bienvenido al Tablero de Administración</h1>
+				</center>
 				</br>
 				</br>
 				</br>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-01-2020 a las 10:05:40
+-- Tiempo de generación: 27-01-2020 a las 04:09:11
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.3
 
@@ -46,7 +46,7 @@ CREATE TABLE `examen` (
 --
 
 INSERT INTO `examen` (`IdExamen`, `Nombre`, `Descripcion`, `Clave`, `Tiempo`, `CalificacionAprobatoria`, `FechaCrea`, `Usuario_Id`, `CantidadPreguntas`, `Valido`) VALUES
-(1, 'Evaluacion de Señalamientos', 'Examen para evaluar a los usuarios sobre los señalamientos.', 'LM', 10, '100.000000', NULL, 2, 20, 1);
+(1, 'Evaluacion de Señalamientos', 'Examen para evaluar a los usuarios sobre los señalamientos.', 'LM', 1, '100.000000', NULL, 2, 20, 1);
 
 -- --------------------------------------------------------
 
@@ -243,9 +243,9 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`Id`, `Nombres`, `PrimerApellido`, `SegundoApellido`, `Usuario`, `Password`, `FechaCrea`, `UsuarioCrea`, `Valido`, `Rol`, `Rfc`) VALUES
-(1, 'Jose del Carmen', 'Hernandez', 'Izquierdo', 'jhernandez', '12345', NULL, 'admin', 1, 'Administrador', 'ninguno'),
+(1, 'Jose del Carmen', 'Hernandez', 'Izquierdo', 'ENROLADOR', '8d5004c9c74259ab775f63f7131da077814a7636', NULL, 'admin', 1, 'enrolador', 'ninguno'),
 (2, 'jesus', 'garcia', 'floresx', 'admin', '8d5004c9c74259ab775f63f7131da077814a7636', '2020-01-09 00:00:00', 'admin', 1, 'administrador', 'GAFJ871028'),
-(3, 'jose del carmen', 'hernandez', 'izquierdo', 'usuario', '8d5004c9c74259ab775f63f7131da077814a7636', '2020-01-19 23:41:36', 'admin', 1, 'usuario', 'sdfdsfsdfsd');
+(3, 'jose del carmen', 'hernandez', 'izquierdo', 'usuario', '8d5004c9c74259ab775f63f7131da077814a7636', '2020-01-19 23:41:36', 'jhernandez', 1, 'usuario', 'sdfdsfsdfsd');
 
 -- --------------------------------------------------------
 
@@ -259,15 +259,15 @@ CREATE TABLE `usuarioexamen` (
   `TiempoTrascurrio` varchar(10) DEFAULT NULL,
   `FechaHoraInicio` datetime DEFAULT NULL,
   `FechaHoraFin` datetime DEFAULT NULL,
-  `Status` int(11) DEFAULT NULL,
-  `Aprobado` int(11) DEFAULT NULL,
+  `Status` int(11) DEFAULT '0',
+  `Aprobado` int(11) DEFAULT '0',
   `FechaCrea` datetime DEFAULT CURRENT_TIMESTAMP,
-  `Valido` int(11) DEFAULT NULL,
+  `Valido` int(11) DEFAULT '1',
   `Examen_IdExamen` int(11) NOT NULL,
   `Usuario_Id` int(11) NOT NULL,
   `Consecutivo` int(11) NOT NULL,
   `IdsPreguntas` varchar(6000) NOT NULL,
-  `Calificacion` decimal(18,6) DEFAULT NULL
+  `Calificacion` decimal(18,6) DEFAULT '0.000000'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -322,7 +322,11 @@ INSERT INTO `usuarioexamen` (`Id`, `Clave`, `TiempoTrascurrio`, `FechaHoraInicio
 (46, 'LM000046', NULL, '2020-01-24 02:54:27', '2020-01-24 02:54:50', 2, 0, '2020-01-24 02:54:13', 0, 1, 3, 46, '25,12,18,3,7,19,17,1,4,26,13,9,15,14,24,23,10,2,20,16', '30.000000'),
 (47, 'LM000047', NULL, '2020-01-24 02:56:16', '2020-01-24 02:56:35', 2, 0, '2020-01-24 02:56:06', 0, 1, 3, 47, '3,17,25,6,21,11,18,1,16,19,7,9,5,14,10,22,8,15,27,4', '20.000000'),
 (48, 'LM000048', NULL, '2020-01-24 03:01:36', '2020-01-24 03:01:56', 2, 0, '2020-01-24 03:01:25', 0, 1, 3, 48, '2,22,24,12,7,19,14,20,17,23,11,27,21,6,10,16,5,18,9,25', '20.000000'),
-(49, 'LM000049', NULL, '2020-01-24 03:04:00', '2020-01-24 03:04:37', 2, 0, '2020-01-24 03:03:47', 1, 1, 3, 49, '14,24,21,22,8,6,19,2,4,17,23,11,3,18,25,10,1,27,20,13', '40.000000');
+(49, 'LM000049', NULL, '2020-01-24 03:04:00', '2020-01-24 03:04:37', 2, 0, '2020-01-24 03:03:47', 0, 1, 3, 49, '14,24,21,22,8,6,19,2,4,17,23,11,3,18,25,10,1,27,20,13', '40.000000'),
+(50, 'LM000050', NULL, '2020-01-25 19:39:02', NULL, 1, NULL, '2020-01-25 19:37:19', 0, 1, 3, 50, '5,15,11,21,10,25,2,9,12,4,3,23,6,17,1,19,8,24,13,16', NULL),
+(51, 'LM000051', NULL, '2020-01-25 19:52:06', NULL, 1, NULL, '2020-01-25 19:51:36', 0, 1, 3, 51, '11,21,26,23,10,7,8,19,13,16,14,2,27,6,9,12,1,20,24,18', NULL),
+(52, 'LM000052', NULL, NULL, NULL, 0, 0, '2020-01-25 19:57:42', 0, 1, 3, 52, '19,4,15,6,3,25,18,10,26,1,14,20,16,11,8,12,23,24,2,5', '0.000000'),
+(53, 'LM000053', NULL, '2020-01-26 20:21:30', '2020-01-26 20:22:31', 2, 0, '2020-01-26 00:34:43', 1, 1, 3, 53, '25,4,14,11,17,3,22,23,21,18,2,12,20,8,27,6,24,9,15,1', '15.000000');
 
 --
 -- Índices para tablas volcadas
@@ -389,13 +393,13 @@ ALTER TABLE `respuesta`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarioexamen`
 --
 ALTER TABLE `usuarioexamen`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- Restricciones para tablas volcadas

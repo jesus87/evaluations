@@ -20,6 +20,7 @@ class Inicio extends CI_Controller {
 			case '':
 				redirect(base_url().'index.php/Login');
 				break;
+			case 'enrolador':
 			case 'administrador':
 				$this->load->view('Header');
 				$this->load->view('Menu');

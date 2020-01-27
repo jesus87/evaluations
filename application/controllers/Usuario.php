@@ -19,6 +19,7 @@ class Usuario extends CI_Controller
 			case '':
 				redirect(base_url() . 'index.php/Login');
 				break;
+			case 'enrolador':
 			case 'administrador':
 				$this->load->view('Header');
 				$this->load->view('Menu');
@@ -50,7 +51,7 @@ class Usuario extends CI_Controller
 			'Nombres' => $this->input->get_post('txtNombre'),
 			'PrimerApellido' => $this->input->get_post('txtApellido'),
 			'SegundoApellido' => $this->input->get_post('txtSegundoApellido'),
-			'Rfc' => $this->input->get_post('txtRfc'),
+			'Rfc' => $this->input->get_post('txtUsuario'),
 			'Rol' => $this->input->get_post('txtRol'),
 			'Valido' => $this->input->get_post('txtValido')
 		);

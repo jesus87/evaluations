@@ -13,7 +13,7 @@ class Login_model extends CI_Model {
 	}
 	public function login_user($username,$password)
 	{
-		$this->db->where('Usuario',$username);
+		$this->db->where('LOWER(Usuario)',$username);
 		$this->db->where('Password',$password);
 		$this->db->where('Valido',1);
 		$query = $this->db->get('usuario');

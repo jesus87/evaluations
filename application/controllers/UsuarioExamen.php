@@ -19,6 +19,7 @@ class UsuarioExamen extends CI_Controller
 			case '':
 				redirect(base_url() . 'index.php/Login');
 				break;
+			case 'enrolador':
 			case 'administrador':
 				$this->load->view('Header');
 				$this->load->view('Menu');
@@ -107,5 +108,14 @@ class UsuarioExamen extends CI_Controller
 		$response_array['message'] = $success;
 		echo json_encode($response_array);
 	}
+	public function RepetirUsuarioExamen()
+	{
 
+		$id = $this->input->post('IdUsuarioExamen');
+		$response_array['status'] = 'success';
+
+		$success = $this->UsuarioExamen_model->RepetirUsuarioExamen( $id);
+		$response_array['message'] = $success;
+		echo json_encode($response_array);
+	}
 }
