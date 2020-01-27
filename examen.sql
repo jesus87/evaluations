@@ -25,6 +25,70 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `evaluacion`
+--
+
+CREATE TABLE `evaluacion` (
+  `Id` int(11) NOT NULL,
+  `Respuesta_IdRespuesta` int(11) NOT NULL,
+  `UsuarioExamen_Id` int(11) NOT NULL,
+  `FechaCrea` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `evaluacion`
+--
+
+INSERT INTO `evaluacion` (`Id`, `Respuesta_IdRespuesta`, `UsuarioExamen_Id`, `FechaCrea`) VALUES
+(57, 1, 60, '2020-01-25 21:29:59'),
+(58, 11, 60, '2020-01-25 21:29:59'),
+(59, 12, 60, '2020-01-25 21:29:59'),
+(60, 1, 61, '2020-01-25 21:34:41'),
+(61, 4, 61, '2020-01-25 21:34:41'),
+(62, 7, 61, '2020-01-25 21:34:41'),
+(63, 9, 61, '2020-01-25 21:34:41'),
+(64, 12, 61, '2020-01-25 21:34:41'),
+(65, 15, 61, '2020-01-25 21:34:41'),
+(66, 21, 61, '2020-01-25 21:34:41'),
+(67, 31, 61, '2020-01-25 21:34:41'),
+(68, 35, 61, '2020-01-25 21:34:41'),
+(69, 38, 61, '2020-01-25 21:34:41'),
+(70, 41, 61, '2020-01-25 21:34:41'),
+(71, 51, 61, '2020-01-25 21:34:41'),
+(72, 53, 61, '2020-01-25 21:34:41'),
+(73, 55, 61, '2020-01-25 21:34:41'),
+(74, 61, 61, '2020-01-25 21:34:41'),
+(75, 64, 61, '2020-01-25 21:34:41'),
+(76, 67, 61, '2020-01-25 21:34:41'),
+(77, 70, 61, '2020-01-25 21:34:41'),
+(78, 79, 61, '2020-01-25 21:34:41'),
+(79, 50, 61, '2020-01-25 21:34:42'),
+(80, 1, 61, '2020-01-25 21:43:54'),
+(81, 4, 61, '2020-01-25 21:43:54'),
+(82, 7, 61, '2020-01-25 21:43:54'),
+(83, 9, 61, '2020-01-25 21:43:54'),
+(84, 12, 61, '2020-01-25 21:43:54'),
+(85, 15, 61, '2020-01-25 21:43:55'),
+(86, 21, 61, '2020-01-25 21:43:55'),
+(87, 31, 61, '2020-01-25 21:43:55'),
+(88, 35, 61, '2020-01-25 21:43:55'),
+(89, 38, 61, '2020-01-25 21:43:55'),
+(90, 41, 61, '2020-01-25 21:43:55'),
+(91, 51, 61, '2020-01-25 21:43:55'),
+(92, 53, 61, '2020-01-25 21:43:55'),
+(93, 55, 61, '2020-01-25 21:43:55'),
+(94, 61, 61, '2020-01-25 21:43:55'),
+(95, 64, 61, '2020-01-25 21:43:55'),
+(96, 67, 61, '2020-01-25 21:43:55'),
+(97, 70, 61, '2020-01-25 21:43:55'),
+(98, 79, 61, '2020-01-25 21:43:55'),
+(99, 50, 61, '2020-01-25 21:43:55');
+
+-- --------------------------------------------------------
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `examen`
 --
 
@@ -33,11 +97,11 @@ CREATE TABLE `examen` (
   `Nombre` varchar(200) DEFAULT NULL,
   `Descripcion` varchar(500) DEFAULT NULL,
   `Clave` varchar(2) DEFAULT NULL,
-  `Tiempo` int(11) DEFAULT '10',
-  `CalificacionAprobatoria` decimal(18,6) DEFAULT '100.000000',
-  `FechaCrea` datetime DEFAULT CURRENT_TIMESTAMP,
+  `Tiempo` int(11) DEFAULT 10,
+  `CalificacionAprobatoria` decimal(18,6) DEFAULT 100.000000,
+  `FechaCrea` datetime DEFAULT current_timestamp(),
   `Usuario_Id` int(11) NOT NULL,
-  `CantidadPreguntas` int(11) DEFAULT '20',
+  `CantidadPreguntas` int(11) DEFAULT 20,
   `Valido` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -46,7 +110,7 @@ CREATE TABLE `examen` (
 --
 
 INSERT INTO `examen` (`IdExamen`, `Nombre`, `Descripcion`, `Clave`, `Tiempo`, `CalificacionAprobatoria`, `FechaCrea`, `Usuario_Id`, `CantidadPreguntas`, `Valido`) VALUES
-(1, 'Evaluacion de Señalamientos', 'Examen para evaluar a los usuarios sobre los señalamientos.', 'LM', 1, '100.000000', NULL, 2, 20, 1);
+(1, 'Evaluacion de Señalamientos', 'Examen para evaluar a los usuarios sobre los señalamientos.', 'LM', 10, '100.000000', NULL, 2, 20, 1);
 
 -- --------------------------------------------------------
 
@@ -61,7 +125,7 @@ CREATE TABLE `pregunta` (
   `Valor` decimal(18,6) DEFAULT NULL,
   `UrlImagen` varchar(200) DEFAULT NULL,
   `Valido` int(11) DEFAULT NULL,
-  `FechaCrea` datetime DEFAULT CURRENT_TIMESTAMP,
+  `FechaCrea` datetime DEFAULT current_timestamp(),
   `UsuarioCrea` varchar(50) DEFAULT NULL,
   `Examen_IdExamen` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -114,7 +178,7 @@ CREATE TABLE `respuesta` (
   `Correcta` int(11) DEFAULT NULL,
   `UrlImagen` varchar(200) DEFAULT NULL,
   `Valido` int(11) DEFAULT NULL,
-  `FechaCrea` datetime DEFAULT CURRENT_TIMESTAMP,
+  `FechaCrea` datetime DEFAULT current_timestamp(),
   `UsuarioCrea` varchar(50) DEFAULT NULL,
   `Pregunta_IdPregunta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -231,7 +295,7 @@ CREATE TABLE `usuario` (
   `SegundoApellido` varchar(100) DEFAULT NULL,
   `Usuario` varchar(50) DEFAULT NULL,
   `Password` varchar(50) DEFAULT NULL,
-  `FechaCrea` datetime DEFAULT CURRENT_TIMESTAMP,
+  `FechaCrea` datetime DEFAULT current_timestamp(),
   `UsuarioCrea` varchar(50) DEFAULT NULL,
   `Valido` int(11) DEFAULT NULL,
   `Rol` varchar(100) DEFAULT NULL,
@@ -323,14 +387,31 @@ INSERT INTO `usuarioexamen` (`Id`, `Clave`, `TiempoTrascurrio`, `FechaHoraInicio
 (47, 'LM000047', NULL, '2020-01-24 02:56:16', '2020-01-24 02:56:35', 2, 0, '2020-01-24 02:56:06', 0, 1, 3, 47, '3,17,25,6,21,11,18,1,16,19,7,9,5,14,10,22,8,15,27,4', '20.000000'),
 (48, 'LM000048', NULL, '2020-01-24 03:01:36', '2020-01-24 03:01:56', 2, 0, '2020-01-24 03:01:25', 0, 1, 3, 48, '2,22,24,12,7,19,14,20,17,23,11,27,21,6,10,16,5,18,9,25', '20.000000'),
 (49, 'LM000049', NULL, '2020-01-24 03:04:00', '2020-01-24 03:04:37', 2, 0, '2020-01-24 03:03:47', 0, 1, 3, 49, '14,24,21,22,8,6,19,2,4,17,23,11,3,18,25,10,1,27,20,13', '40.000000'),
-(50, 'LM000050', NULL, '2020-01-25 19:39:02', NULL, 1, NULL, '2020-01-25 19:37:19', 0, 1, 3, 50, '5,15,11,21,10,25,2,9,12,4,3,23,6,17,1,19,8,24,13,16', NULL),
-(51, 'LM000051', NULL, '2020-01-25 19:52:06', NULL, 1, NULL, '2020-01-25 19:51:36', 0, 1, 3, 51, '11,21,26,23,10,7,8,19,13,16,14,2,27,6,9,12,1,20,24,18', NULL),
-(52, 'LM000052', NULL, NULL, NULL, 0, 0, '2020-01-25 19:57:42', 0, 1, 3, 52, '19,4,15,6,3,25,18,10,26,1,14,20,16,11,8,12,23,24,2,5', '0.000000'),
-(53, 'LM000053', NULL, '2020-01-26 20:21:30', '2020-01-26 20:22:31', 2, 0, '2020-01-26 00:34:43', 1, 1, 3, 53, '25,4,14,11,17,3,22,23,21,18,2,12,20,8,27,6,24,9,15,1', '15.000000');
+(50, 'LM000050', NULL, '2020-01-25 18:57:26', '2020-01-25 19:00:37', 2, 0, '2020-01-25 18:56:22', 0, 1, 3, 50, '23,11,14,4,27,15,21,12,7,19,10,6,13,2,8,25,5,9,18,16', '50.000000'),
+(51, 'LM000051', NULL, '2020-01-25 19:06:43', '2020-01-25 19:07:07', 2, 0, '2020-01-25 19:06:22', 0, 1, 3, 51, '10,16,14,3,27,17,23,22,6,19,5,2,13,24,7,15,18,25,8,21', '15.000000'),
+(52, 'LM000052', NULL, '2020-01-25 19:15:06', '2020-01-25 19:18:28', 2, 0, '2020-01-25 19:14:48', 0, 1, 3, 52, '16,17,21,14,18,26,10,9,11,5,13,8,3,1,4,2,20,19,23,25', '0.000000'),
+(53, 'LM000053', NULL, '2020-01-25 19:20:04', NULL, 1, NULL, '2020-01-25 19:19:05', 0, 1, 3, 53, '11,27,21,4,24,18,26,6,9,1,13,17,2,5,20,12,19,23,7,3', NULL),
+(54, 'LM000054', NULL, '2020-01-25 19:30:35', NULL, 1, NULL, '2020-01-25 19:30:20', 0, 1, 3, 54, '23,11,9,6,15,13,26,2,22,20,14,8,18,24,17,1,21,10,27,7', NULL),
+(55, 'LM000055', NULL, '2020-01-25 19:44:44', '2020-01-25 19:48:51', 2, 0, '2020-01-25 19:43:45', 0, 1, 3, 55, '6,1,12,16,24,19,13,8,27,23,25,4,11,26,17,18,10,15,14,7', '0.000000'),
+(56, 'LM000056', NULL, '2020-01-25 19:50:17', '2020-01-25 20:00:18', 2, 0, '2020-01-25 19:49:54', 0, 1, 3, 56, '25,19,8,4,5,20,22,16,6,9,2,3,14,11,27,24,21,17,1,7', '10.000000'),
+(57, 'LM000057', NULL, '2020-01-25 20:19:37', NULL, 1, NULL, '2020-01-25 20:13:37', 0, 1, 3, 57, '5,24,20,16,18,8,1,21,27,2,17,23,6,15,25,7,11,9,14,4', NULL),
+(58, 'LM000058', NULL, '2020-01-25 20:48:02', '2020-01-25 20:58:02', 2, 0, '2020-01-25 20:47:42', 0, 1, 3, 58, '16,27,12,10,18,19,20,14,8,23,24,2,4,22,17,11,3,6,15,5', '40.000000'),
+(59, 'LM000059', NULL, '2020-01-25 21:27:23', '2020-01-25 21:27:45', 2, 0, '2020-01-25 21:26:54', 0, 1, 3, 59, '27,12,13,11,5,18,8,21,1,24,14,15,19,20,23,17,6,9,26,4', '15.000000'),
+(60, 'LM000060', NULL, '2020-01-25 21:29:22', '2020-01-25 21:29:59', 2, 0, '2020-01-25 21:29:08', 0, 1, 3, 60, '6,20,24,19,10,4,11,1,5,7,25,27,12,26,8,22,18,9,16,13', '10.000000'),
+(61, 'LM000061', NULL, '2020-01-25 21:33:52', '2020-01-25 21:43:54', 2, 0, '2020-01-25 21:33:39', 1, 1, 3, 61, '24,4,14,5,17,18,1,27,21,13,23,11,2,19,16,15,22,6,3,8', '50.000000');
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `evaluacion`
+--
+ALTER TABLE `evaluacion`
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `fk_Resultado_Respuesta1_idx` (`Respuesta_IdRespuesta`),
+  ADD KEY `fk_Evaluacion_UsuarioExamen1_idx` (`UsuarioExamen_Id`);
+
 
 --
 -- Indices de la tabla `examen`
@@ -370,7 +451,12 @@ ALTER TABLE `usuarioexamen`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+-- AUTO_INCREMENT de la tabla `evaluacion`
+--
+ALTER TABLE `evaluacion`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
+--
 --
 -- AUTO_INCREMENT de la tabla `examen`
 --
@@ -399,11 +485,19 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `usuarioexamen`
 --
 ALTER TABLE `usuarioexamen`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- Restricciones para tablas volcadas
 --
+
+
+--
+-- Filtros para la tabla `evaluacion`
+--
+ALTER TABLE `evaluacion`
+  ADD CONSTRAINT `fk_Evaluacion_UsuarioExamen1` FOREIGN KEY (`UsuarioExamen_Id`) REFERENCES `usuarioexamen` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Resultado_Respuesta1` FOREIGN KEY (`Respuesta_IdRespuesta`) REFERENCES `respuesta` (`IdRespuesta`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `examen`
