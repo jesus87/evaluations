@@ -35,10 +35,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<form id="frmUsuario">
 					<h4 class="modal-title">Usuario </h4>
 					<input type="hidden" name="hdIdUsuario" id="hdIdUsuario" value="0"/>
+					<input type="hidden" id="hdRolUsuario" value="<?php echo $this->session->userdata('perfil');?>" />
 					<div class="control-group">
-						<label for="txtUsuario">Usuario(Debe Tener Minimo 5 caracteres y Maximo 10):</label>
+						<label for="txtUsuario">RFC:</label>
 						<input type="text" class="form-control" minlength="5" maxlength="10" name="txtUsuario"
-							   id="txtUsuario" placeholder="Usuario"/>
+							   id="txtUsuario" placeholder="RFC"/>
 					</div>
 					<div class="control-group">
 						<label for="txtPassword">Password(Debe Tener Minimo 5 caracteres y Maximo 10):</label>
@@ -62,7 +63,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<input type="text" class="form-control"  name="txtSegundoApellido"
 							   id="txtSegundoApellido" placeholder="Segundo Apellido"/>
 					</div>
-					<div class="control-group">
+					<div style="display: none" class="control-group">
 						<label for="txtRfc">RFC:</label>
 						<input type="text" class="form-control"  name="txtRfc"
 							   id="txtRfc" placeholder="RFC"/>
@@ -70,11 +71,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<div class="control-group">
 						<label for="txtRol">Rol:</label>
 						<select type="text" class="form-control" name="txtRol" id="txtRol"/>
+						<?php
+							  if( $this->session->userdata('perfil') == 'administrador'){
+						?>
 							<option value="administrador">Administrador</option>
+							<option value="enrolador">Enrolador</option>
+						<?php }?>
 							<option value="usuario">Usuario</option>
 						</select>
 					</div>
-					<div class="control-group">
+					<div style="display: none" class="control-group">
 
 						<label for="txtValido">Valido:</label> &nbsp;&nbsp; <input type="checkbox"   name="txtValido"
 							   id="txtValido" checked="true" />

@@ -10,6 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<div class="row align-items-center">
 					<div class="col">
 						<h3 class="mb-0">Asignar Usuarios a Examen</h3>
+						<input type="hidden" id="hdRolUsuario" value="<?php echo $this->session->userdata('perfil');?>" />
 					</div>
 
 				</div>

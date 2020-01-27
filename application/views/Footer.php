@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="row align-items-center justify-content-xl-between">
           <div class="col-xl-6">
             <div class="copyright text-center text-xl-left text-muted">
-              &copy; 2018 <a href="#" class="font-weight-bold ml-1" target="_blank">Katana Software</a>
+              &copy; 2020 <a href="http://idsa.com" class="font-weight-bold ml-1" target="_blank">www.idsa.com</a>
             </div>
           </div>
           

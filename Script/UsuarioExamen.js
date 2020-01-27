@@ -156,7 +156,7 @@ function gvUsuarioExamen() {
 
 			{
 				command: [{
-					name: "Evaluados", imageClass: "k-icon k-i-close", click: function (e) {
+					name: "Evaluados", click: function (e) {
 						e.preventDefault();
 						var dataItem = this.dataItem($(e.target).closest("tr"));
 						var id = dataItem.Id;
@@ -178,16 +178,16 @@ function gvUsuarioExamen() {
 			},
 
 			{
-				field: "IdExamen", width: 100,
-				title: "#", filterable: {
+				field: "IdExamen", width: 200,
+				title: "Numero de Examen", filterable: {
 					cell: {
 						operator: "contains"
 					}
 				}
 			},
 			{
-				field: "Nombre", width: 100,
-				title: "Nombre", filterable: {
+				field: "Nombre", width: 200,
+				title: "Nombre del Examen", filterable: {
 					cell: {
 						operator: "contains"
 					}
@@ -196,7 +196,7 @@ function gvUsuarioExamen() {
 			},
 
 			{
-				field: "Descripcion", width: 100,
+				field: "Descripcion", width: 300,
 				title: "Descripcion", filterable: {
 					cell: {
 						operator: "contains"
@@ -205,7 +205,7 @@ function gvUsuarioExamen() {
 
 			},
 			{
-				field: "Clave", width: 100,
+				field: "Clave", width: 150,
 				title: "Clave", filterable: {
 					cell: {
 						operator: "contains"
@@ -280,7 +280,7 @@ function gvUsuarioExamen() {
 			},
 			pageSize: 10
 		},
-		
+		height: 700,
 		filterable: {
 			mode: "row"
 		},
@@ -465,54 +465,105 @@ function gvUsuario() {
 }
 function gvUsuarioAgregados() {
 
-
+	var mostrar = ($("#hdRolUsuario").val() == "administrador" ? true : false);
 	var grid = $('#tblUsuariosAgregados').kendoGrid({
 		columns: [
-
 			{
-				command: [{
-					name: "Eliminar", imageClass: "k-icon k-i-close", click: function (e) {
+				command:
+					[{
+						name: "Repetir", imageClass: "k-icon k-i-refresh"
+						, click: function (e) {
+							e.preventDefault();
+							var dataItem = this.dataItem($(e.target).closest("tr"));
+							var IdUsuarioExamen = dataItem.Id;
+							var Nombre = dataItem.Nombre;
+							var Status = dataItem.Status;
+							var parametros = {
+								"IdUsuarioExamen": IdUsuarioExamen
+							};
+
+							if(Status == 1 || Status == 2 ){
+								alertify.confirm('Realmente quiere Reiniciar el examen del usuario ' + Nombre + ' ?', function (e) {
+									if (e) {
+										$.ajax({
+											type: 'POST',
+											url: 'UsuarioExamen/RepetirUsuarioExamen',
+											dataType: 'json',
+											data: parametros,
+											success: function (msg) {
+												if (msg.message == "OK") {
+													$("#tblUsuariosAgregados").data("kendoGrid").dataSource.read();
+
+												} else alertify.alert(msg.Error);
+
+
+											},
+											error: function (x, status, error) {
+												alert("Ocurrio un Error: " + status + "nError: " + x.responseText);
+											}
+
+										});
+
+									}
+								});
+
+							}
+							else {
+								alertify.alert("No es Posible Reiniciar el Examen, ya que aun no ha sido iniciado");
+							}
+						}
+					}], title: "&nbsp;", width: "150px" ,hidden: !mostrar
+			},
+			{
+				command:
+					[{
+					name: "Eliminar", imageClass: "k-icon k-i-close"
+					, click: function (e) {
 						e.preventDefault();
 						var dataItem = this.dataItem($(e.target).closest("tr"));
 						var IdUsuarioExamen = dataItem.Id;
 						var Nombre = dataItem.Nombre;
+						var Status = dataItem.Status;
 						//var IdExamen = $("#IdUsuarioExamen").val();
 						var parametros = {
 							"IdUsuarioExamen": IdUsuarioExamen
 						};
 
+						if(Status == 1 || Status == 2 ){
+							alertify.alert("No es Pobisle Eliminar, el usuario ha "+
+								(Status == 1 ? "Empezado" : "Terminado") + " El Examen");
+						}
+						else {
+							alertify.confirm('Realmente quiere Eliminar el usuario ' + Nombre + ' del examen ?', function (e) {
+								if (e) {
+									$.ajax({
+										type: 'POST',
+										url: 'UsuarioExamen/EliminarUsuarioExamen',
+										dataType: 'json',
+										data: parametros,
+										success: function (msg) {
+											if (msg.message == "OK") {
+												$("#tblUsuariosAgregados").data("kendoGrid").dataSource.read();
 
-						alertify.confirm('Realmente quiere Eliminar el usuario '+ Nombre +' del examen ?', function (e) {
-							if (e) {
-								$.ajax({
-									type: 'POST',
-									url: 'UsuarioExamen/EliminarUsuarioExamen',
-									dataType: 'json',
-									data: parametros,
-									success: function (msg) {
-										if (msg.message == "OK") {
-											$("#tblUsuariosAgregados").data("kendoGrid").dataSource.read();
+											} else alertify.alert(msg.Error);
 
+
+										},
+										error: function (x, status, error) {
+											alert("Ocurrio un Error: " + status + "nError: " + x.responseText);
 										}
-										else alertify.alert(msg.Error);
 
+									});
 
-									},
-									error: function (x, status, error) {
-										alert("Ocurrio un Error: " + status + "nError: " + x.responseText);
-									}
-
-								});
-
-							}
-						});
-
+								}
+							});
+						}
 					}
 				}], title: "&nbsp;", width: "150px"
 			},
 			{
 				command: [{
-					name: "Imprimir Calificacion", imageClass: "k-icon k-i-close", click: function (e) {
+					name: "Calificacion", imageClass: "k-icon k-i-paste-plain-text", click: function (e) {
 						e.preventDefault();
 						var dataItem = this.dataItem($(e.target).closest("tr"));
 						var IdUsuarioExamen = dataItem.Id;
@@ -651,7 +702,6 @@ function gvUsuarioAgregados() {
 			},
 			pageSize: 10
 		},
-
 		filterable: {
 			mode: "row"
 		},
@@ -668,6 +718,9 @@ function gvUsuarioAgregados() {
 	}).data("kendoGrid");//fin del grid
 }
 function PrintDiv(id) {
+	var width =screen.width;
+	var height =screen.height;
+
 	var parametros = {
 		"idusuarioexamen": id
 	};
@@ -678,7 +731,7 @@ function PrintDiv(id) {
 		data: parametros,
 		success: function (msg) {
 
-			var popupWin = window.open('', '_blank', 'width=300,height=300');
+			var popupWin = window.open('', '_blank', 'width='+width+',height='+height);
 			popupWin.document.open();
 			popupWin.document.write('<html><body onload="window.print()">' + msg.data + '</html>');
 			popupWin.document.close();

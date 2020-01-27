@@ -33,6 +33,7 @@ class Login extends CI_Controller {
 				$data['titulo'] = 'Login con roles de usuario';
 				$this->load->view('Login',$data);
 				break;
+			case 'enrolador':
 			case 'administrador':
 				redirect(base_url().'index.php/inicio');
 				break;
@@ -65,7 +66,7 @@ class Login extends CI_Controller {
 			{
 				$this->index();
 			}else{
-				$username = $this->input->post('username');
+				$username =strtolower( $this->input->post('username'));
 				$password = sha1($this->input->post('password'));
 				$check_user = $this->Login_model->login_user($username,$password);
 				if($check_user == TRUE)

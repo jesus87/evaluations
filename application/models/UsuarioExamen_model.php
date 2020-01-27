@@ -209,4 +209,29 @@ class UsuarioExamen_model extends CI_Model
 		}
 
 	}
+	/**
+	 * Delete physical an user of database
+	 * @param  int $id of the user
+	 * @return  string message of result
+	 */
+	public function RepetirUsuarioExamen( $id)
+	{
+		$data = array(
+			'Status' => 0,
+			'Aprobado' => 0,
+			'Calificacion' => 0,
+			'FechaHoraInicio' => NULL,
+			'FechaHoraFin' => NULL
+
+		);
+		$this->db->where("Id", $id);
+		$this->db->update("usuarioexamen",$data);
+		$error = $this->db->error();
+		if ($error["message"] != "") {
+			return $error["message"];
+		} else {
+			return "OK";
+		}
+
+	}
 }
