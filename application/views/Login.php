@@ -55,14 +55,14 @@
 			<?=
 			form_open(base_url() . 'index.php/Login/new_user', $attributes) ?>
 
-					<span class="login100-form-logo">
+					<span >
 
 						<img style="width: 100%;" src="<?php echo base_url(); ?>assets/img/brand/coolpet_admin.png">
 					</span>
 
-				<span class="login100-form-title p-b-34 p-t-27">
+				<!-- <span class="login100-form-title p-b-34 p-t-27">
 						INGRESO
-				</span>
+				</span> -->
 
 				<div class="wrap-input100 validate-input" data-validate="Enter username">
 					<!--<input class="input100" type="text" name="username" placeholder="Nombre de Usuario">-->

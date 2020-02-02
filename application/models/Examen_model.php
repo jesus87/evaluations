@@ -75,12 +75,12 @@ class Examen_model extends CI_Model
 
 
 			if ($tipo == 1) {
-				$html .= '<td><input type="radio"  name="' . $row['Pregunta_IdPregunta'] . '" value="' . $row['Valor'] . '">' .
+				$html .= '<td><input type="radio"  name="' . $row['Pregunta_IdPregunta'] . '" value="' . $row['Valor'] . '" idrespuesta="'.$row['IdRespuesta'].'">' .
 					$row['Nombre'] . $imagen. '</td>';
 			}
 			else if($tipo == 2) {
 
-							$html .= '<td><input type="checkbox"  name="' . $row['Pregunta_IdPregunta'].'_'.$contador . '" value="' . $row['Valor']  . '">' .
+							$html .= '<td><input type="checkbox"  name="' . $row['Pregunta_IdPregunta'].'_'.$contador . '" value="' . $row['Valor']  . '" idrespuesta="'.$row['IdRespuesta'].'">' .
 							$row['Nombre'] . $imagen.'</td>';
 			}
 
@@ -105,20 +105,87 @@ class Examen_model extends CI_Model
 		}
 
 	}
+	public function InsertaRespuestasUsuario($respuestas, $id)
+	{
+		$longitud = count($respuestas);
+ 		$mensajesdeerror="";
+
+		//Recorro todos los elementos
+		for($i=0; $i<$longitud; $i++){
+
+			$data=array(
+				"Respuesta_IdRespuesta" => $respuestas[$i],
+				"UsuarioExamen_Id" => $id
+			);
+			$this->db->insert('evaluacion', $data);			
+			$error = $this->db->error();
+			if ($error["message"] != "") {
+				$mensajesdeerror .= $error;
+			}
+
+		}
+
+		
+		if ($mensajesdeerror != "") {
+			return $mensajesdeerror;
+		} else {
+			return "OK";
+		}
+
+	}
 	public function GetExamenResultado( $id_examen)
 	{
 
-		$sql='select examen.IdExamen as IdExamen,examen.Nombre as Nombre,
+		// $sql='select examen.IdExamen as IdExamen,examen.Nombre as Nombre,
+		// examen.Descripcion as Descripcion,examen.Tiempo as Tiempo,examen.CalificacionAprobatoria,
+		//  examen.CantidadPreguntas,usuarioexamen.Clave,
+		//  DATE_FORMAT(usuarioexamen.FechaHoraInicio,\'%Y-%m-%d %h:%i:%s\')  as FechaHoraInicio,
+		//  DATE_FORMAT(usuarioexamen.FechaHoraFin,\'%Y-%m-%d %h:%i:%s\')  as    FechaHoraFin,
+		//  usuarioexamen.Aprobado,usuarioexamen.Calificacion,
+		//  usuario.Nombres,usuario.PrimerApellido,usuario.SegundoApellido,usuario.Rfc 
+		//  from examen 
+		//   join usuarioexamen on examen.IdExamen = usuarioexamen.Examen_IdExamen 
+		//   join usuario on usuarioexamen.Usuario_Id = usuario.Id 
+		//   where usuarioexamen.Id =' . $id_examen .' and usuarioexamen.Valido = 1';
+
+		  $sql='select examen.IdExamen as IdExamen,examen.Nombre as Nombre,
 		examen.Descripcion as Descripcion,examen.Tiempo as Tiempo,examen.CalificacionAprobatoria,
 		 examen.CantidadPreguntas,usuarioexamen.Clave,
 		 DATE_FORMAT(usuarioexamen.FechaHoraInicio,\'%Y-%m-%d %h:%i:%s\')  as FechaHoraInicio,
 		 DATE_FORMAT(usuarioexamen.FechaHoraFin,\'%Y-%m-%d %h:%i:%s\')  as    FechaHoraFin,
 		 usuarioexamen.Aprobado,usuarioexamen.Calificacion,
-		 usuario.Nombres,usuario.PrimerApellido,usuario.SegundoApellido,usuario.Rfc 
+		 usuario.Nombres,usuario.PrimerApellido,usuario.SegundoApellido,usuario.Rfc, 
+         ifnull(Incorrectas.Incorrectas,0) Incorrectas,ifnull(Correctas.Correctas,0) Correctas,
+         examen.CantidadPreguntas-(ifnull(Incorrectas.Incorrectas,0) +ifnull(Correctas.Correctas,0)) SinContestar
 		 from examen 
-		  join usuarioexamen on examen.IdExamen = usuarioexamen.Examen_IdExamen 
-		  join usuario on usuarioexamen.Usuario_Id = usuario.Id 
+		  join usuarioexamen on (examen.IdExamen = usuarioexamen.Examen_IdExamen) 
+		  join usuario on (usuarioexamen.Usuario_Id = usuario.Id )
+          join ( 
+          	 select ue.Id ,count(0) Incorrectas
+             from examen e
+             inner join usuarioexamen ue on e.IdExamen = ue.Examen_IdExamen 
+             inner join evaluacion ev on (ue.Id=ev.UsuarioExamen_Id)
+             inner join respuesta r on (ev.Respuesta_IdRespuesta=r.IdRespuesta and r.Valido=1)
+             inner join usuario u on (ue.Usuario_Id = u.Id )
+             where  ue.Valido = 1
+             and ue.id=' . $id_examen .'
+             and ifnull(r.Correcta,0)!=1
+             group by ue.Id
+          ) Incorrectas on (Incorrectas.Id=usuarioexamen.Id)
+          join (
+          	select ue.Id ,count(0) Correctas
+             from examen e
+             inner join usuarioexamen ue on e.IdExamen = ue.Examen_IdExamen 
+             inner join evaluacion ev on (ue.Id=ev.UsuarioExamen_Id)
+             inner join respuesta r on (ev.Respuesta_IdRespuesta=r.IdRespuesta and r.Valido=1)
+             inner join usuario u on (ue.Usuario_Id = u.Id )
+             where  ue.Valido = 1
+             and ue.id=' . $id_examen .'
+             and ifnull(r.Correcta,0)=1
+             group by ue.Id
+          )Correctas on (Correctas.Id=usuarioexamen.Id)
 		  where usuarioexamen.Id =' . $id_examen .' and usuarioexamen.Valido = 1';
+
 		$query = $this->db->query($sql);
 
 
@@ -153,8 +220,16 @@ class Examen_model extends CI_Model
 			$html .= '</tr>';
 			$html .='<tr><td colspan="2"><br/><br/></td></tr>';
 			$html .= '<tr>';
-			$html .= '<td>Cantidad de Preguntas:</td>';
-			$html .= '<td>'. $row['CantidadPreguntas'].'</td>';
+			$html .= '<td>Cantidad de Preguntas Contestadas Correctamente:</td>';
+			$html .= '<td>'.$row['Correctas']."/". $row['CantidadPreguntas'].'</td>';
+			$html .='</tr>';
+			$html .= '<tr>';
+			$html .= '<td>Cantidad de Preguntas Contestadas Incorrectamente:</td>';
+			$html .= '<td>'.$row['Incorrectas']."/". $row['CantidadPreguntas'].'</td>';
+			$html .='</tr>';
+			$html .= '<tr>';
+			$html .= '<td>Cantidad de Preguntas Contestadas No Contestadas:</td>';
+			$html .= '<td>'.$row['SinContestar']."/". $row['CantidadPreguntas'].'</td>';
 			$html .='</tr>';
 			$html .='<tr><td colspan="2"><br/><br/></td></tr>';
 			$html .= '<tr>';

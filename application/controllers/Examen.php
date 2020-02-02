@@ -41,6 +41,9 @@ class Examen extends CI_Controller
 		$id = $this->input->get_post('hdIdUsuarioExamen');
 		$aprobado = $this->input->get_post('aprobado');
 		$calificacion = $this->input->get_post('calificacion');
+		$Respuestas = $this->input->get_post('Respuestas');
+		$success = $this->Examen_model->InsertaRespuestasUsuario($Respuestas,$id);
+	
 		$data = array(
 			'FechaHoraFin' => $HoraActual,
 			'Status' => 2,

@@ -1,12 +1,8 @@
+var RespuestasUsuario=[];
 $(document).ready(function () {
-
-
 	if($("#hdTiempoAux").val() != $("#hdTiempo").val()){
 		Init();
 	}
-
-
-
 });
 function Init(){
 	$("#btnComenzar").attr("disabled","disabled");
@@ -69,7 +65,8 @@ function CalificarFunc() {
 		var parametros = {
 			"hdIdUsuarioExamen": $("#hdIdUsuarioExamen").val(),
 			"aprobado": aprobo,
-			"calificacion": calificacion
+			"calificacion": calificacion,
+			"Respuestas":RespuestasUsuario
 		};
 		$.ajax({
 			type: 'POST',
@@ -128,19 +125,21 @@ function ReiniciarExamen(IdUsuarioExamen) {
 	return false;
 }
 function GetCalificacion(){
+	RespuestasUsuario=[];
 
 
 	var numberOfCheckedRadio=0;
 	$('input[type="radio"]:checked').each( function() {
 		var radio = $(this)[0];
 		numberOfCheckedRadio += parseFloat( radio.value);
+		RespuestasUsuario.push($(radio).attr("idrespuesta"));
 
 	});
 	var numberOfCheckedCheckBox=0;
 	$('input[type="checkbox"]:checked').each( function() {
 		var checkbox = $(this)[0];
 		numberOfCheckedCheckBox += parseFloat( checkbox.value);
-
+		RespuestasUsuario.push($(checkbox).attr("idrespuesta"));
 	});
 
 

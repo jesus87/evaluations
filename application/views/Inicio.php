@@ -39,8 +39,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <span class="navbar-toggler-icon"></span>
       </button>
       <!-- Brand -->
-      <a class="navbar-brand pt-0" href="./index.html">
-        <img src="./assets/img/brand/coolpet_admin.png" class="navbar-brand-img" alt="...">
+      <a class="navbar-brand" href="./index.html">
+        <img src="./assets/img/brand/IconoPlataforma.png" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -98,7 +98,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="row">
             <div class="col-6 collapse-brand">
               <a href="./index.html">
-                <img src="./assets/img/brand/coolpet_admin.png">
+                <img src="./assets/img/brand/IconoPlataforma.png">
               </a>
             </div>
             <div class="col-6 collapse-close">
