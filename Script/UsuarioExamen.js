@@ -493,7 +493,7 @@ function gvUsuarioAgregados() {
 											success: function (msg) {
 												if (msg.message == "OK") {
 													$("#tblUsuariosAgregados").data("kendoGrid").dataSource.read();
-
+													jQuery('#myModal1').modal('hide');
 												} else alertify.alert(msg.Error);
 
 
@@ -544,6 +544,7 @@ function gvUsuarioAgregados() {
 										success: function (msg) {
 											if (msg.message == "OK") {
 												$("#tblUsuariosAgregados").data("kendoGrid").dataSource.read();
+												jQuery('#myModal1').modal('hide');
 
 											} else alertify.alert(msg.Error);
 
