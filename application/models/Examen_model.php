@@ -29,6 +29,10 @@ class Examen_model extends CI_Model
 		$contador=1;
 		foreach ($query->result_array() as $row) {
 			$imagen="";
+			if ($row['Tipo'] == 3){
+				$arrayIzquierda = $this->GetRespuestasTipoRelacion($row['IdPregunta']);
+				if(empty($arrayIzquierda)) continue;
+			}
 			if($row['UrlImagen']!=""){
 				$imagen=' <img src="../imagenes/'.$row['IdPregunta']."/".$row['UrlImagen'].'" width="40px" height="42" /> ';
 			}
@@ -84,11 +88,13 @@ class Examen_model extends CI_Model
 							$row['Nombre'] . $imagen.'</td>';
 			}
 			else if($tipo == 3) {
-				$resputaMultiple = $arrayIzquierda[$contador -1];
+				if (!empty($arrayIzquierda)) {
+					$resputaMultiple = $arrayIzquierda[$contador - 1];
+					$html .= '<td><div id="s' . $idPregunta . '_' . $contador . '" style="cursor: pointer;" onclick="return unir(\'' . $idPregunta . '_' . $contador . '\',\'source\',' . $resputaMultiple['IdRespuestaMultiple'] . ');"  class="supply box">' .
+						' <img src="../imagenes/' . $row['Pregunta_IdPregunta'] . "/" . $resputaMultiple['UrlImagen'] . '" width="40px" height="42" /> '
+						. '</div></td>';
+				}
 
-				$html .= '<td><div id="s'.$idPregunta.'_'.$contador.'" style="cursor: pointer;" onclick="return unir(\''.$idPregunta.'_'.$contador.'\',\'source\','.$resputaMultiple['IdRespuestaMultiple'].');"  class="supply box">'.
-					' <img src="../imagenes/'.$row['Pregunta_IdPregunta']."/".$resputaMultiple['UrlImagen'].'" width="40px" height="42" /> '
-					.'</div></td>';
 				$html.='<td width="200px"></td>';
 				$html .= '<td colspan="2"><div '.' idrespuesta="'.$row['IdRespuesta'].'" value="'.$row['Valor'].'" resputaContestada="0" respuestaCorrecta="'.$row['Correcta'].'" id="d'.$idPregunta.'_'.$contador.'" style="cursor: pointer;" onclick="return unir(\''.$idPregunta.'_'.$contador.'\',\'destination\',0);"  class="box2 supplied">'.
 					$row['Nombre']
