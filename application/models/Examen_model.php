@@ -61,7 +61,7 @@ class Examen_model extends CI_Model
 			->where('Valido', 1);
 		$query  =  $this->db->get();
 		$html='<table>';
-
+		$arrayIzquierda = $this->GetRespuestasTipoRelacion($idPregunta);
 		$contador=1;
 		foreach ($query->result_array() as $row) {
 
@@ -75,15 +75,26 @@ class Examen_model extends CI_Model
 
 
 			if ($tipo == 1) {
-				$html .= '<td><input type="radio"  name="' . $row['Pregunta_IdPregunta'] . '" value="' . $row['Valor'] . '" idrespuesta="'.$row['IdRespuesta'].'">' .
+				$html .= '<td colspan="4"><input type="radio"  name="' . $row['Pregunta_IdPregunta'] . '" value="' . $row['Valor'] . '" idrespuesta="'.$row['IdRespuesta'].'">' .
 					$row['Nombre'] . $imagen. '</td>';
 			}
 			else if($tipo == 2) {
 
-							$html .= '<td><input type="checkbox"  name="' . $row['Pregunta_IdPregunta'].'_'.$contador . '" value="' . $row['Valor']  . '" idrespuesta="'.$row['IdRespuesta'].'">' .
+							$html .= '<td colspan="4"><input type="checkbox"  name="' . $row['Pregunta_IdPregunta'].'_'.$contador . '" value="' . $row['Valor']  . '" idrespuesta="'.$row['IdRespuesta'].'">' .
 							$row['Nombre'] . $imagen.'</td>';
 			}
+			else if($tipo == 3) {
+				$resputaMultiple = $arrayIzquierda[$contador -1];
 
+				$html .= '<td><div id="s'.$idPregunta.'_'.$contador.'" style="cursor: pointer;" onclick="return unir(\''.$idPregunta.'_'.$contador.'\',\'source\','.$resputaMultiple['IdRespuestaMultiple'].');"  class="supply box">'.
+					' <img src="../imagenes/'.$row['Pregunta_IdPregunta']."/".$resputaMultiple['UrlImagen'].'" width="40px" height="42" /> '
+					.'</div></td>';
+				$html.='<td width="200px"></td>';
+				$html .= '<td colspan="2"><div '.' idrespuesta="'.$row['IdRespuesta'].'" value="'.$row['Valor'].'" resputaContestada="0" respuestaCorrecta="'.$row['Correcta'].'" id="d'.$idPregunta.'_'.$contador.'" style="cursor: pointer;" onclick="return unir(\''.$idPregunta.'_'.$contador.'\',\'destination\',0);"  class="box2 supplied">'.
+					$row['Nombre']
+					.'</div></td>';
+
+			}
 			$html.='</tr>';
 			$contador= $contador + 1;
 		}
@@ -91,6 +102,14 @@ class Examen_model extends CI_Model
 
 		$html.='</table>';
 		return $html;
+	}
+	public  function GetRespuestasTipoRelacion($idPregunta){
+		$this->db->select('* ')
+			->from('respuestamultiple')
+			->where('IdPregunta', $idPregunta)
+			->order_by('Orden', 'ASC');
+		$query  =  $this->db->get();
+		return $query->result_array();
 	}
 	public function ActualizaUsuarioExamen($data, $id)
 	{
@@ -107,7 +126,11 @@ class Examen_model extends CI_Model
 	}
 	public function InsertaRespuestasUsuario($respuestas, $id)
 	{
-		$longitud = count($respuestas);
+		$longitud=0;
+		if (!empty( $respuestas ))
+		{
+			$longitud = count($respuestas);
+		}
  		$mensajesdeerror="";
 
 		//Recorro todos los elementos

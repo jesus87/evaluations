@@ -59,6 +59,7 @@
 			};
 
 			me.on = function(el1, el2) {
+
 				var $el1 = $(el1);
 				var $el2 = $(el2);
 				if ($el1.length && $el2.length) {
@@ -112,6 +113,7 @@
 					newpath.setAttributeNS(null, "opacity", settings.opacity);
 					newpath.setAttributeNS(null, "fill", settings.fill);
 					svgnode.appendChild(newpath);
+					$(svgnode).attr("mine","svg"+$(el1).attr("id"));
 					$(svgnode).css({
 						left : svgleft,
 						top : svgtop,

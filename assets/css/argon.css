@@ -21870,3 +21870,33 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle
 
     height: 3px;
 }
+.box
+{
+	margin: 10px;
+	background-color: white;
+	width: 80px;
+	padding: 10px;
+	text-align: center;
+	font-weight: bold;
+	border: 2px solid black;
+}
+.box2
+{
+	margin: 10px;
+	background-color: yellow;
+	width: 100%;
+	padding: 10px;
+	text-align: center;
+	font-weight: bold;
+	border: 2px solid black;
+}
+.box-blue
+{
+	background-color: #0000AA;
+	color: white;
+}
+.box-red
+{
+	background-color: #AA0000;
+	color: white;
+}

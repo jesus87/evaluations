@@ -1,6 +1,9 @@
 var RespuestasUsuario=[];
+var idSource='', idDestination='', typeBefore='', idRespuestaSeleccionada=0;
 $(document).ready(function () {
+
 	if($("#hdTiempoAux").val() != $("#hdTiempo").val()){
+
 		Init();
 	}
 });
@@ -53,6 +56,8 @@ function Calificar() {
 			CalificarFunc();
 		}
 	});
+
+
 	return false;
 }
 function CalificarFunc() {
@@ -142,8 +147,16 @@ function GetCalificacion(){
 		RespuestasUsuario.push($(checkbox).attr("idrespuesta"));
 	});
 
+	var numberOfDivs=0;
+	$(".box2").each(function(){
+		if($(this).attr('resputaContestada') == $(this).attr('respuestaCorrecta')){
+			numberOfDivs += parseFloat( $(this).attr('value'));
+			RespuestasUsuario.push($(this).attr('idrespuesta'));
+		}
+	});
 
-	return (parseFloat(numberOfCheckedRadio + numberOfCheckedCheckBox) * 100) / parseFloat($("#hdCantidadPreguntas").val());
+
+	return (parseFloat(numberOfCheckedRadio + numberOfCheckedCheckBox + numberOfDivs) * 100) / parseFloat($("#hdCantidadPreguntas").val());
 
 }
 function Endining() {
@@ -152,7 +165,8 @@ function Endining() {
 	$("#divHeader").show();
 	$("#btnresultado").show();
 	$("#divResultado").show('slow');
-
+	$("#ropebag").remove();
+	$('#time').chrony('set', { minutes: 10000 });
 
 	var parametros = {
 		"idusuarioexamen": $("#hdIdUsuarioExamen").val()
@@ -184,4 +198,53 @@ function PrintDiv() {
 	popupWin.document.open();
 	popupWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</html>');
 	popupWin.document.close();
+}
+function unir(id, type, respuestaSeleccionada){
+
+	if (typeBefore != type){
+		if (type == 'source') {
+			idSource=id;
+			idRespuestaSeleccionada=respuestaSeleccionada;
+			$(".s"+idSource).removeAttr("resputaContestada");
+			$(".s"+idSource).attr("resputaContestada",0);
+
+
+			$(".box2").removeClass("s"+idSource);
+			idDestination ='';
+			$("[mine]").each(function(){
+				if($(this).attr('mine') == "svgs"+idSource){
+					$(this).remove();
+				}
+			});
+		}
+		else idDestination = id;
+		if(idSource !='' && idDestination !=''){
+
+
+			var classes =$("#d"+idDestination).prop("classList");
+			jQuery.each( classes, function( i, val ) {
+				if(val != 'box2' && val != 'supplied')
+				{
+					$("#d"+idDestination).removeClass(val);
+					$("[mine]").each(function(){
+						if($(this).attr('mine') == "svg"+val){
+							$(this).remove();
+						}
+					});
+				}
+			});
+			$("#d"+idDestination).addClass("s"+idSource);
+			$("#d"+idDestination).removeAttr("resputaContestada");
+			$("#d"+idDestination).attr("resputaContestada",idRespuestaSeleccionada);
+			$('.supply').bezier({strokeColor : 'red',});
+			idSource='';
+			idDestination='';
+			idRespuestaSeleccionada=0;
+			typeBefore='';
+
+		}
+	}
+
+
+	return false;
 }
