@@ -82,13 +82,7 @@
 
 				<li class="nav-item">
 					<a class="nav-link" href="<?php echo base_url(); ?>index.php/UsuarioExamen">
-						<i class="ni ni-laptop text-info"></i> Asignar Examen 
-					</a>
-					
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url(); ?>index.php/CreaExamen">
-						<i class="ni ni-laptop text-info"></i> Crea Examen
+						<i class="ni ni-laptop text-info"></i> Examenes
 					</a>
 				</li>
 
