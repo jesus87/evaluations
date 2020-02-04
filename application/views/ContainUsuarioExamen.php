@@ -28,44 +28,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 </div>
 
-<div id="myModal" class="modal fade">
-	<div class="modal-dialog  ">
-		<div class="modal-content">
-			<div class="modal-header">
-		        <h5 class="modal-title">Listado de Usuarios Activos</h5>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		          <span aria-hidden="true">&times;</span>
-		        </button>
-		    </div>
-			<div class="modal-body">
-				
-				<input type="hidden" id="IdExamen" value="0">
-				<input type="hidden" id="ClaveExamen" value="">
-				<div id="tblUsuario">
+<div id="myModal" style="display:none;">
+	<!-- <h5 class="modal-title">Listado de Usuarios Activos</h5> -->
+	<br/>
+	<br/>
+	<div class="row">
+		<input type="hidden" id="IdExamen" value="0">
+		<input type="hidden" id="ClaveExamen" value="">
+		<div id="tblUsuario">
 
-				</div>
-
-			</div>
 		</div>
 	</div>
 </div>
 
-<div id="myModal1" class="modal fade">
-	<div class="modal-dialog  ">
-		<div class="modal-content">
-			<div class="modal-header">
-		        <h5 class="modal-title">Listado de Usuarios Agregados</h5>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		          <span aria-hidden="true">&times;</span>
-		        </button>
-		    </div>
-			<div class="modal-body">				
-				<input type="hidden" id="IdExamenUA" value="0">
-				<div id="tblUsuariosAgregados">
+<div id="myModal1" style="display:none;">
+	<!-- <h5 class="modal-title">Listado de Usuarios Agregados</h5> -->
+	<br/>
+	<br/>
+	<div class="row">
+		<input type="hidden" id="IdExamenUA" value="0">
+		<div id="tblUsuariosAgregados">
 
-				</div>
-
-			</div>
 		</div>
 	</div>
 </div>

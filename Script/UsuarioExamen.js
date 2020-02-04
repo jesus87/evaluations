@@ -5,6 +5,39 @@ $(document).ready(function () {
 	gvUsuarioAgregados();
 });
 
+function dialog1() {
+
+	wnd = jQuery("#myModal")
+		.kendoWindow({
+			modal: true,
+			visible: false,
+			resizable: false
+
+		}).data("kendoWindow");
+	wnd.title("Listado de Usuarios Activos");
+	wnd.open().maximize();
+
+
+	return false;
+}
+
+function dialog2() {
+
+
+
+	wnd = jQuery("#myModal1")
+		.kendoWindow({
+			modal: true,
+			visible: false,
+			resizable: false
+
+		}).data("kendoWindow");
+	wnd.title("Listado de Usuarios Agregados");
+	wnd.open().maximize();
+
+
+	return false;
+}
 
 function AgregarUsuario() {
 
@@ -21,7 +54,7 @@ function AgregarUsuario() {
         $("#ClaveExamen").val(Clave);
        	//LimpiaUsuario();
        	$("#tblUsuario").data("kendoGrid").dataSource.read();
-		jQuery('#myModal').modal('show');
+		dialog1();
 
     }
     else {
@@ -37,7 +70,7 @@ function AgregarUsuario() {
 
 function AbreModalusuariosAgregados(){
 
-	jQuery('#myModal1').modal('show');
+	dialog2();
 	$("#tblUsuariosAgregados").data("kendoGrid").dataSource.read();
 
 }
@@ -493,7 +526,8 @@ function gvUsuarioAgregados() {
 											success: function (msg) {
 												if (msg.message == "OK") {
 													$("#tblUsuariosAgregados").data("kendoGrid").dataSource.read();
-													jQuery('#myModal1').modal('hide');
+
+													$("#myModal1").data("kendoWindow").close();
 												} else alertify.alert(msg.Error);
 
 
@@ -544,7 +578,7 @@ function gvUsuarioAgregados() {
 										success: function (msg) {
 											if (msg.message == "OK") {
 												$("#tblUsuariosAgregados").data("kendoGrid").dataSource.read();
-												jQuery('#myModal1').modal('hide');
+												$("#myModal1").data("kendoWindow").close();
 
 											} else alertify.alert(msg.Error);
 
