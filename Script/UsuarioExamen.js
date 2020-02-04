@@ -77,7 +77,7 @@ function AbreModalusuariosAgregados(){
 
 function CancelarUsuario() {
 
-	jQuery('#myModal').modal('hide');
+	$("#myModal").data("kendoWindow").close();
 
 	return false;
 }
