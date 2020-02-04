@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-01-2020 a las 04:09:11
--- Versión del servidor: 10.1.38-MariaDB
--- Versión de PHP: 7.3.3
+-- Tiempo de generación: 04-02-2020 a las 18:46:36
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.2.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -82,9 +82,64 @@ INSERT INTO `evaluacion` (`Id`, `Respuesta_IdRespuesta`, `UsuarioExamen_Id`, `Fe
 (96, 67, 61, '2020-01-25 21:43:55'),
 (97, 70, 61, '2020-01-25 21:43:55'),
 (98, 79, 61, '2020-01-25 21:43:55'),
-(99, 50, 61, '2020-01-25 21:43:55');
-
--- --------------------------------------------------------
+(99, 50, 61, '2020-01-25 21:43:55'),
+(100, 1, 62, '2020-01-27 12:59:30'),
+(101, 3, 62, '2020-01-27 12:59:30'),
+(102, 6, 62, '2020-01-27 12:59:30'),
+(103, 9, 62, '2020-01-27 12:59:30'),
+(104, 12, 62, '2020-01-27 12:59:30'),
+(105, 15, 62, '2020-01-27 12:59:30'),
+(106, 22, 62, '2020-01-27 12:59:30'),
+(107, 31, 62, '2020-01-27 12:59:30'),
+(108, 36, 62, '2020-01-27 12:59:30'),
+(109, 52, 62, '2020-01-27 12:59:30'),
+(110, 54, 62, '2020-01-27 12:59:30'),
+(111, 57, 62, '2020-01-27 12:59:30'),
+(112, 60, 62, '2020-01-27 12:59:30'),
+(113, 63, 62, '2020-01-27 12:59:30'),
+(114, 66, 62, '2020-01-27 12:59:30'),
+(115, 73, 62, '2020-01-27 12:59:31'),
+(116, 81, 62, '2020-01-27 12:59:31'),
+(117, 1, 62, '2020-01-27 13:00:13'),
+(118, 3, 62, '2020-01-27 13:00:13'),
+(119, 6, 62, '2020-01-27 13:00:13'),
+(120, 9, 62, '2020-01-27 13:00:13'),
+(121, 14, 62, '2020-01-27 13:00:13'),
+(122, 15, 62, '2020-01-27 13:00:13'),
+(123, 21, 62, '2020-01-27 13:00:13'),
+(124, 26, 62, '2020-01-27 13:00:13'),
+(125, 30, 62, '2020-01-27 13:00:13'),
+(126, 37, 62, '2020-01-27 13:00:13'),
+(127, 52, 62, '2020-01-27 13:00:13'),
+(128, 54, 62, '2020-01-27 13:00:13'),
+(129, 55, 62, '2020-01-27 13:00:14'),
+(130, 60, 62, '2020-01-27 13:00:14'),
+(131, 61, 62, '2020-01-27 13:00:14'),
+(132, 64, 62, '2020-01-27 13:00:14'),
+(133, 67, 62, '2020-01-27 13:00:14'),
+(134, 72, 62, '2020-01-27 13:00:14'),
+(135, 73, 62, '2020-01-27 13:00:14'),
+(136, 79, 62, '2020-01-27 13:00:14'),
+(137, 1, 62, '2020-01-27 13:09:41'),
+(138, 3, 62, '2020-01-27 13:09:42'),
+(139, 6, 62, '2020-01-27 13:09:42'),
+(140, 9, 62, '2020-01-27 13:09:42'),
+(141, 14, 62, '2020-01-27 13:09:42'),
+(142, 15, 62, '2020-01-27 13:09:42'),
+(143, 21, 62, '2020-01-27 13:09:42'),
+(144, 26, 62, '2020-01-27 13:09:42'),
+(145, 30, 62, '2020-01-27 13:09:42'),
+(146, 37, 62, '2020-01-27 13:09:42'),
+(147, 52, 62, '2020-01-27 13:09:42'),
+(148, 54, 62, '2020-01-27 13:09:42'),
+(149, 55, 62, '2020-01-27 13:09:42'),
+(150, 60, 62, '2020-01-27 13:09:42'),
+(151, 61, 62, '2020-01-27 13:09:42'),
+(152, 64, 62, '2020-01-27 13:09:42'),
+(153, 67, 62, '2020-01-27 13:09:43'),
+(154, 72, 62, '2020-01-27 13:09:43'),
+(155, 73, 62, '2020-01-27 13:09:43'),
+(156, 79, 62, '2020-01-27 13:09:43');
 
 -- --------------------------------------------------------
 
@@ -110,7 +165,13 @@ CREATE TABLE `examen` (
 --
 
 INSERT INTO `examen` (`IdExamen`, `Nombre`, `Descripcion`, `Clave`, `Tiempo`, `CalificacionAprobatoria`, `FechaCrea`, `Usuario_Id`, `CantidadPreguntas`, `Valido`) VALUES
-(1, 'Evaluacion de Señalamientos', 'Examen para evaluar a los usuarios sobre los señalamientos.', 'LM', 1, '100.000000', NULL, 2, 20, 1);
+(1, 'Evaluacion de Señalamientos', 'Examen para evaluar a los usuarios sobre los señalamientos.', 'LM', 10, '100.000000', NULL, 2, 20, 1),
+(2, 'examen jose', 'gsfdfdf', 'JH', 10, '80.000000', '2020-02-02 14:08:18', 2, 10, 0),
+(3, 'examen jose2', 'examen para pruebas psicometricas', 'GH', 10, '80.000000', '2020-02-03 14:44:49', 2, 10, 0),
+(4, 'examen jose2', 'examen para pruebas psicometricas', 'GH', 10, '80.000000', '2020-02-03 14:44:54', 2, 10, 0),
+(5, 'examen prueba1', 'prueba de examen y id', 'TY', 10, '80.000000', '2020-02-03 15:21:53', 2, 10, 0),
+(6, 'examen prueba', 'SADA', 'RF', 10, '10.000000', '2020-02-03 15:22:58', 2, 10, 1),
+(7, 'saasdad', 'SDSDFDSFDSF', 'FR', 10, '80.000000', '2020-02-03 15:25:02', 2, 10, 1);
 
 -- --------------------------------------------------------
 
@@ -163,7 +224,14 @@ INSERT INTO `pregunta` (`IdPregunta`, `Tipo`, `Nombre`, `Valor`, `UrlImagen`, `V
 (26, 1, 'La vuelta a la derecha, ¿es siempre continua?', '0.000000', '', 1, NULL, 'admin', 1),
 (27, 1, '¿Qué distancia puede recorrer un vehículo en reversa?', '0.000000', '', 1, NULL, 'admin', 1),
 (28, 3, 'Señala con una línea a que marca de pavimento pertenece la imagen:', '0.000000', '', 0, NULL, 'admin', 1),
-(29, 3, 'Relaciona la respuesta de las siguientes señales:', '0.000000', '', 0, NULL, 'admin', 1);
+(29, 3, 'Relaciona la respuesta de las siguientes señales:', '0.000000', '', 0, NULL, 'admin', 1),
+(31, 1, 'prueba modificada pregunta?', '10.000000', NULL, 1, '2020-02-02 19:07:30', 'admin', 2),
+(35, 1, 'qweqwewqe', '10.000000', NULL, 0, '2020-02-02 23:46:05', 'admin', 2),
+(36, 2, 'qweqwewqe', '10.000000', NULL, 0, '2020-02-02 23:46:35', 'admin', 2),
+(37, 2, 'qweqwewqe', '10.000000', NULL, 0, '2020-02-02 23:46:51', 'admin', 2),
+(45, 1, 'primer pregunta texto para ver si no se desborda prueba dsdsds sds ds dsdsds?', '10.000000', '02_04_2020_06_42_50.png', 1, '2020-02-03 15:27:07', 'admin', 7),
+(46, 3, 'favor de relacionar la siguientes preguntas con la imagen correspondiente', '10.000000', NULL, 1, '2020-02-03 18:47:35', 'admin', 7),
+(47, 2, 'pregunta de opcion multiple', '10.000000', NULL, 1, '2020-02-03 23:26:35', 'admin', 7);
 
 -- --------------------------------------------------------
 
@@ -280,7 +348,42 @@ INSERT INTO `respuesta` (`IdRespuesta`, `Nombre`, `Valor`, `Correcta`, `UrlImage
 (90, '67. prohibido rebasar', '0.000000', 0, '', 1, '2020-01-18 21:23:22', 'admin', 29),
 (91, '68. prohibido estacionarse', '0.000000', 0, '', 1, '2020-01-18 21:23:22', 'admin', 29),
 (92, '69. prohibido parar', '0.000000', 0, '', 1, '2020-01-18 21:23:22', 'admin', 29),
-(93, '70. prohibido seguir de frent', '0.000000', 0, '', 1, '2020-01-18 21:23:22', 'admin', 29);
+(93, '70. prohibido seguir de frent', '0.000000', 0, '', 1, '2020-01-18 21:23:22', 'admin', 29),
+(96, 'respuesta 2 de la pregunta 2', '0.000000', 1, NULL, 1, '2020-02-03 10:07:59', 'admin', 35),
+(97, 'respuesta 3 de la pregunta 2', '0.000000', 0, NULL, 1, '2020-02-03 10:08:23', 'admin', 35),
+(99, 'respuesta 1 de la pregunta 4', '0.000000', 1, NULL, 1, '2020-02-03 10:09:20', 'admin', 37),
+(100, 'respuesta2 de la pregunta 4', '0.000000', 1, NULL, 1, '2020-02-03 10:09:36', 'admin', 37),
+(103, 'respuesta 4 de la pregunta 1', '5.000000', 1, NULL, 1, '2020-02-03 12:24:20', 'admin', 31),
+(104, 'RESPUESTA 1 DE LA PREGUNTA 1', '3.000000', 1, NULL, 1, '2020-02-03 15:27:25', 'admin', 45),
+(105, 'RESPUESTA2 DE LA PREGUNTA 1', '3.000000', 0, NULL, 1, '2020-02-03 15:27:39', 'admin', 45),
+(106, 'RESPUESTA3 DE LA PREGUNTA 1', '4.000000', 0, '02_04_2020_06_26_07.jpg', 1, '2020-02-03 15:28:01', 'admin', 45),
+(107, 'respuesta de imagen a relacionar', '1.000000', 1, NULL, 1, '2020-02-03 19:16:31', 'admin', 46),
+(108, 'respuesta segunda', '1.000000', 2, NULL, 0, '2020-02-03 21:14:56', 'admin', 46),
+(109, 'respuesta2', '1.000000', 3, NULL, 1, '2020-02-03 22:26:26', 'admin', 46),
+(110, 'primer respuesta', '5.000000', 1, '02_04_2020_06_26_56.jpg', 1, '2020-02-03 23:26:49', 'admin', 47),
+(111, 'segunda respuesta', '5.000000', 0, '02_04_2020_06_27_17.PNG', 1, '2020-02-03 23:27:08', 'admin', 47);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `respuestamultiple`
+--
+
+CREATE TABLE `respuestamultiple` (
+  `IdRespuestaMultiple` int(11) NOT NULL,
+  `UrlImagen` varchar(200) NOT NULL,
+  `Orden` int(11) NOT NULL,
+  `IdPregunta` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `respuestamultiple`
+--
+
+INSERT INTO `respuestamultiple` (`IdRespuestaMultiple`, `UrlImagen`, `Orden`, `IdPregunta`) VALUES
+(1, 'Imagenes/46/respuestamultiple/02_04_2020_05_17_12.jpg', 1, 46),
+(2, 'Imagenes/46/respuestamultiple/02_04_2020_04_15_08.png', 1, 46),
+(3, 'Imagenes/46/respuestamultiple/02_04_2020_05_28_32.jpg', 2, 46);
 
 -- --------------------------------------------------------
 
@@ -307,9 +410,10 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`Id`, `Nombres`, `PrimerApellido`, `SegundoApellido`, `Usuario`, `Password`, `FechaCrea`, `UsuarioCrea`, `Valido`, `Rol`, `Rfc`) VALUES
-(1, 'Jose del Carmen', 'Hernandez', 'Izquierdo', 'ENROLADOR', '8d5004c9c74259ab775f63f7131da077814a7636', NULL, 'admin', 1, 'enrolador', 'ninguno'),
+(1, 'Jose del Carmen', 'Hernandez', 'Izquierdo', 'jhernandez', '12345', NULL, 'admin', 1, 'Administrador', 'ninguno'),
 (2, 'jesus', 'garcia', 'floresx', 'admin', '8d5004c9c74259ab775f63f7131da077814a7636', '2020-01-09 00:00:00', 'admin', 1, 'administrador', 'GAFJ871028'),
-(3, 'jose del carmen', 'hernandez', 'izquierdo', 'usuario', '8d5004c9c74259ab775f63f7131da077814a7636', '2020-01-19 23:41:36', 'jhernandez', 1, 'usuario', 'sdfdsfsdfsd');
+(3, 'jose del carmen', 'hernandez', 'izquierdo', 'usuario', '8cb2237d0679ca88db6464eac60da96345513964', '2020-01-19 23:41:36', 'admin', 1, 'usuario', 'sdfdsfsdfsd'),
+(4, 'prueba2', 'apellido', 'apellido', '123456', '8cb2237d0679ca88db6464eac60da96345513964', '2020-01-27 12:49:11', 'admin', 1, 'usuario', '123456');
 
 -- --------------------------------------------------------
 
@@ -323,15 +427,15 @@ CREATE TABLE `usuarioexamen` (
   `TiempoTrascurrio` varchar(10) DEFAULT NULL,
   `FechaHoraInicio` datetime DEFAULT NULL,
   `FechaHoraFin` datetime DEFAULT NULL,
-  `Status` int(11) DEFAULT '0',
-  `Aprobado` int(11) DEFAULT '0',
-  `FechaCrea` datetime DEFAULT CURRENT_TIMESTAMP,
-  `Valido` int(11) DEFAULT '1',
+  `Status` int(11) DEFAULT NULL,
+  `Aprobado` int(11) DEFAULT NULL,
+  `FechaCrea` datetime DEFAULT current_timestamp(),
+  `Valido` int(11) DEFAULT NULL,
   `Examen_IdExamen` int(11) NOT NULL,
   `Usuario_Id` int(11) NOT NULL,
   `Consecutivo` int(11) NOT NULL,
   `IdsPreguntas` varchar(6000) NOT NULL,
-  `Calificacion` decimal(18,6) DEFAULT '0.000000'
+  `Calificacion` decimal(18,6) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -398,7 +502,8 @@ INSERT INTO `usuarioexamen` (`Id`, `Clave`, `TiempoTrascurrio`, `FechaHoraInicio
 (58, 'LM000058', NULL, '2020-01-25 20:48:02', '2020-01-25 20:58:02', 2, 0, '2020-01-25 20:47:42', 0, 1, 3, 58, '16,27,12,10,18,19,20,14,8,23,24,2,4,22,17,11,3,6,15,5', '40.000000'),
 (59, 'LM000059', NULL, '2020-01-25 21:27:23', '2020-01-25 21:27:45', 2, 0, '2020-01-25 21:26:54', 0, 1, 3, 59, '27,12,13,11,5,18,8,21,1,24,14,15,19,20,23,17,6,9,26,4', '15.000000'),
 (60, 'LM000060', NULL, '2020-01-25 21:29:22', '2020-01-25 21:29:59', 2, 0, '2020-01-25 21:29:08', 0, 1, 3, 60, '6,20,24,19,10,4,11,1,5,7,25,27,12,26,8,22,18,9,16,13', '10.000000'),
-(61, 'LM000061', NULL, '2020-01-25 21:33:52', '2020-01-25 21:43:54', 2, 0, '2020-01-25 21:33:39', 1, 1, 3, 61, '24,4,14,5,17,18,1,27,21,13,23,11,2,19,16,15,22,6,3,8', '50.000000');
+(61, 'LM000061', NULL, '2020-01-25 21:33:52', '2020-01-25 21:43:54', 2, 0, '2020-01-25 21:33:39', 1, 1, 3, 61, '24,4,14,5,17,18,1,27,21,13,23,11,2,19,16,15,22,6,3,8', '50.000000'),
+(62, 'LM000062', NULL, NULL, NULL, 0, 0, '2020-01-27 12:49:24', 1, 1, 4, 62, '17,20,27,2,8,9,6,13,11,18,21,3,23,19,1,22,25,24,4,5', '0.000000');
 
 --
 -- Índices para tablas volcadas
@@ -411,7 +516,6 @@ ALTER TABLE `evaluacion`
   ADD PRIMARY KEY (`Id`),
   ADD KEY `fk_Resultado_Respuesta1_idx` (`Respuesta_IdRespuesta`),
   ADD KEY `fk_Evaluacion_UsuarioExamen1_idx` (`UsuarioExamen_Id`);
-
 
 --
 -- Indices de la tabla `examen`
@@ -435,6 +539,12 @@ ALTER TABLE `respuesta`
   ADD KEY `fk_Respuesta_Pregunta1_idx` (`Pregunta_IdPregunta`);
 
 --
+-- Indices de la tabla `respuestamultiple`
+--
+ALTER TABLE `respuestamultiple`
+  ADD PRIMARY KEY (`IdRespuestaMultiple`);
+
+--
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
@@ -451,29 +561,36 @@ ALTER TABLE `usuarioexamen`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
 -- AUTO_INCREMENT de la tabla `evaluacion`
 --
 ALTER TABLE `evaluacion`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157;
 
---
 --
 -- AUTO_INCREMENT de la tabla `examen`
 --
 ALTER TABLE `examen`
-  MODIFY `IdExamen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `IdExamen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `pregunta`
 --
 ALTER TABLE `pregunta`
-  MODIFY `IdPregunta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `IdPregunta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT de la tabla `respuesta`
 --
 ALTER TABLE `respuesta`
-  MODIFY `IdRespuesta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `IdRespuesta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+
+--
+-- AUTO_INCREMENT de la tabla `respuestamultiple`
+--
+ALTER TABLE `respuestamultiple`
+  MODIFY `IdRespuestaMultiple` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
@@ -485,12 +602,11 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `usuarioexamen`
 --
 ALTER TABLE `usuarioexamen`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- Restricciones para tablas volcadas
 --
-
 
 --
 -- Filtros para la tabla `evaluacion`
