@@ -39,6 +39,39 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/Login_v3/css/util.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/Login_v3/css/main.css">
 	<!--===============================================================================================-->
+	<style>
+			input.button_add {
+			
+			
+			border: 0.5px solid #000;
+			background:  url(<?php echo base_url(); ?>/assets/img/brand/finger.png)no-repeat 10px center;
+			font-family: Poppins-Medium;
+			font-size: 16px;
+			color: #555555;
+			line-height: 1.2;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: -moz-box;
+			display: -ms-flexbox;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 0 20px;
+			min-width: 120px;
+			height: 50px;
+			border-radius: 25px;
+			position: relative;
+			cursor:pointer;
+    z-index: 1;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;						
+		}
+		
+
+	</style>
+
 </head>
 <body>
 <?php
@@ -95,7 +128,17 @@
 					-->
 
 					<?= form_hidden('token', $token) ?>
-					<?= form_submit($submit) ?>
+					<div class="row">
+						<div class="col-6">
+							<?= form_submit($submit) ?>
+						</div>
+						<div class="col-6">
+							<input type="button" name="button" value="    Huella" title="Iniciar sesión" class="button_add">
+							
+						</div>
+				  </div>
+					
+					
 
                     <?php
 						if ($this->session->flashdata('usuario_incorrecto')) {

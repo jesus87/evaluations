@@ -124,5 +124,46 @@ class Login extends CI_Controller {
 
 
 	}
+	public function new_userByToken($tkn = NULL)
+	{
+	        if( $tkn !== NULL) 
+	        {
+            
+                $token =$tkn;
+                $row = $this->Login_model->login_token($token);
+                if (isset($row))
+                {
+                    date_default_timezone_set("America/Mexico_City");
+                    $fecha = $row->fecha;
+                    $usuario = $row->usuario;
+                    $dt = new DateTime($fecha);
+    				$HoraInicio = $dt->format('Y-m-d H:i:s');
+    				$diff = $dt->diff(new DateTime());
+    				$minutes = ($diff->days * 24 * 60) + ($diff->h * 60) + $diff->i;
+    				
+    				if ($minutes <= 5){
+    				    $check_user = $this->Login_model->loginWithOutPassword_user($usuario);
+    				    
+        				if($check_user == TRUE)
+        				{
+        				    
+        				    	
+        					$data = array(
+        						'is_logued_in' => TRUE,
+        						'id_usuario' => $check_user->Id,
+        						'perfil' => strtolower($check_user->Rol),
+        						'username' => $check_user->Usuario,
+        						'name' =>$check_user->Usuario. " | ". $check_user->Nombres." ".$check_user->PrimerApellido,
+        						'mail' => $check_user->Rol
+        
+        					);
+        					$this->session->set_userdata($data);
+        					$this->index();
+        				}
+    				}
+                }
+	        }
+	        $this->index();
+	}
 }
 

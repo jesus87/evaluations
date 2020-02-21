@@ -505,9 +505,67 @@ INSERT INTO `usuarioexamen` (`Id`, `Clave`, `TiempoTrascurrio`, `FechaHoraInicio
 (61, 'LM000061', NULL, '2020-01-25 21:33:52', '2020-01-25 21:43:54', 2, 0, '2020-01-25 21:33:39', 1, 1, 3, 61, '24,4,14,5,17,18,1,27,21,13,23,11,2,19,16,15,22,6,3,8', '50.000000'),
 (62, 'LM000062', NULL, NULL, NULL, 0, 0, '2020-01-27 12:49:24', 1, 1, 4, 62, '17,20,27,2,8,9,6,13,11,18,21,3,23,19,1,22,25,24,4,5', '0.000000');
 
+
+
+--
+-- Estructura de tabla para la tabla `huella`
+--
+
+CREATE TABLE `huella` (
+  `usuario` varchar(50) NOT NULL,
+  `huella` varchar(5000) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `huella`
+--
+
+INSERT INTO `huella` (`usuario`, `huella`) VALUES
+('jhernandez', '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');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `token`
+--
+
+CREATE TABLE `token` (
+  `usuario` varchar(50) NOT NULL,
+  `token` varchar(500) NOT NULL,
+  `fecha` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `token`
+--
+
+INSERT INTO `token` (`usuario`, `token`, `fecha`) VALUES
+('jhernandez', 'fd984f5d58622dea875ce5d313c8b162c33590778872cd7c2a870222cba686c7b924c78ea2a134e9a0fc3152a7c2085659848ba94a6c590a764e65c27cbad2df', '2020-02-19 23:48:14'),
+('jhernandez', '468e7246e1af3d4e', '2020-02-19 23:55:52'),
+('jhernandez', '6d0759a50dc14f14c2c542038b2e770f', '2020-02-19 23:56:28'),
+('jhernandez', '781b22eef243374b7c9922cbdd48bc07', '2020-02-19 23:57:12'),
+('jhernandez', 'd9e3d754ba2fc9024abc93e9d14ef86f', '2020-02-20 17:20:00'),
+('jhernandez', '81825459447bee81584ac49d745202373b1262da1ab7d46b6b9190acc0b05a9e', '2020-02-20 18:04:14'),
+('jhernandez', 'b855bb64255fbed885524339d0d77a2116d7249ec3ddabc2bd2ef561aa96915456743dc389f49978045e5b2754e4a199524709d0ea4c1ff564f2f7b556ff2736', '2020-02-20 18:04:55'),
+('jhernandez', '3d851800b38dc8e016df57ca478aa949cfed436e4f2a7b23e130d9bfc8a19cc108aeba840910518a64bb722096677275f3667097e44918db7de467deb377918c', '2020-02-20 18:20:31'),
+('jhernandez', 'bcf7f80d140e7cef12a65a0fbf824de8fee075e928f6973cdd225d4a095bce0f2ba5e290a217fb1f6baccf0469bc4d113eacde21795b66bb411bda8d4bdda5c8', '2020-02-20 18:27:55'),
+('jhernandez', '21805780ab5a7d307b418baeff398427', '2020-02-20 18:30:27'),
+('jhernandez', '7a10f81e267239b9725155586d5d4372', '2020-02-20 18:52:05'),
+('jhernandez', '85cc9ffe2d6e1be4613960c584a3e088', '2020-02-20 19:12:20'),
+('jhernandez', '60c9e30e803f182a8b8e1eeb27ee3532', '2020-02-20 19:21:13');
+
+-- --------------------------------------------------------
+
 --
 -- Índices para tablas volcadas
 --
+
+
+--
+-- Indices de la tabla `huella`
+--
+ALTER TABLE `huella`
+  ADD PRIMARY KEY (`usuario`);
 
 --
 -- Indices de la tabla `evaluacion`
